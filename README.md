@@ -87,6 +87,7 @@ Added under Google Drive (PU gruppe 69) -> Git/git-cheat-sheet.png
 * Erik Hide Sæternes
 * Sigurd Sigurdsson Langfeldt
 * Casper Feng
+* Hanna Bakken Kyrkjebø
 
 ## Authors
 
