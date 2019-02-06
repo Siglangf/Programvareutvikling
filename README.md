@@ -78,6 +78,9 @@ Add additional notes about how to deploy this on a live system
 * At least two collaborators have to approve a pull request before it is merged in to dev-branch
 * Always use "Squash and merge" as merge-options (merge into dev)
 
+## Git-flowsheet
+Added under Google Drive (PU gruppe 69) -> Git/git-cheat-sheet.png
+
 ## Contributing
 * Harkamaljit Singh
 * Hans Christian Johnsen
@@ -89,8 +92,3 @@ Add additional notes about how to deploy this on a live system
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## License
-
-## Acknowledgments
-
-* 
