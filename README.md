@@ -81,6 +81,24 @@ Add additional notes about how to deploy this on a live system
 ## Git-flowsheet
 Added under Google Drive (PU gruppe 69) -> Git/git-cheat-sheet.png
 
+## Folder-structure
+
+### client 
+client is the client-side (frontend) part of the application
+
+#### containers
+stateful components that manages other components 
+
+#### components
+stateless components 
+
+#### assets
+pictures used in the project
+
+#### hoc
+used for layout purposes
+
+
 ## Contributing
 * Harkamaljit Singh
 * Hans Christian Johnsen
