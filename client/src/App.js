@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
 
@@ -29,10 +28,10 @@ state = {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Layout>
         </Layout>
-      </div>
+      </React.Fragment>
     );
   }
 }
