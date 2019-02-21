@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import Aux from '../Aux/Aux';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import AboutUs from '../../components/AboutUs/AboutUs';
+import Header from '../../components/Header/Header';
 
 
 class Layout extends Component {
-    state = {
-        
-    }
-
     render () {
         return (
-          <Aux>
+          <React.Fragment>
              <Toolbar />
-                <main className={"Content"}>
-                    {this.props.children}
+                <main className="Content">
+                <Header />
+                <AboutUs />
                 </main>
-          </Aux>
+          </React.Fragment>
         );
     }
 }
