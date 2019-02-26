@@ -1,0 +1,8 @@
+.auction {
+  width: 30%;
+  margin: 20px 20px;
+  text-align: center;
+  padding: 0 25px;
+  border: 2px solid black;
+  display: inline-block;
+}
