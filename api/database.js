@@ -4,7 +4,7 @@ const util = require("util");
 async function sendQuery(pool, qry) {
   /*This function is an asyncronous function because of the delayed query function used within. 
   
-  INPUT: The MySQL query to be sendt to the database
+  INPUT: Pool and the MySQL query to be sendt to the database
   
   OUTPUT: A Promise-object with the data recieved from the database as a list of objects: 
   [{obj1_attribute1: value, obj:2attribute2: value}, {obj2_attribute1,obj2_attribute2}, etc...]

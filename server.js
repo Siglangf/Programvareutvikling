@@ -37,11 +37,8 @@ app.get("/express_backend", (req, res) => {
   res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
 });
 
+/*When an endpoint with /api/users/<something more> is called from react, 
+the server sends the job to users.js in the api/routes/ folder*/
 app.use("/api/users", users);
 
-async function test() {
-  console.log(await sendQuery(pool, "SELECT * FROM users"));
-}
-//test();
-
-exports.pool = pool;
+exports.pool = pool; //exports the connection so it can be required in the users.js module
