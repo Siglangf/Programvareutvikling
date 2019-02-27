@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
+import Header from './components/Header/Header';
+import LoginPage from './components/LoginPage/LoginPage';
+import AboutUs from './components/AboutUs/AboutUs';
+import AuctionBuilder from './containers/AuctionBuilder/AuctionBuilder';
 
 //Main site of the application, this is where we import other components
 
@@ -30,8 +34,13 @@ state = {
   render() {
     return (
       <React.Fragment>
-        <Layout>
-        </Layout>
+        <Layout />
+        <main className="Content">
+                <Header />
+                <LoginPage />
+                <AboutUs />
+                <AuctionBuilder />
+        </main>
       </React.Fragment>
     );
   }

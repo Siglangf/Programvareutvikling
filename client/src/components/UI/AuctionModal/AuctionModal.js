@@ -2,7 +2,7 @@ import React, {Component} from   'react';
 import { runInThisContext } from 'vm';
 
 class AuctionModal extends Component {
-
+  //does not need any info
   state = {
     name: '',
     desc: '',
