@@ -3,6 +3,7 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import AboutUs from '../../components/AboutUs/AboutUs';
 import Header from '../../components/Header/Header';
 import AuctionBuilder from '../../containers/AuctionBuilder/AuctionBuilder';
+import LoginPage from '../../components/LoginPage/LoginPage';
 
 
 class Layout extends Component {
@@ -12,6 +13,7 @@ class Layout extends Component {
              <Toolbar />
                 <main className="Content">
                 <Header />
+                <LoginPage />
                 <AboutUs />
                 <AuctionBuilder />
                 </main>

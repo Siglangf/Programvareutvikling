@@ -1,0 +1,41 @@
+.loginpage {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 70px;
+    text-align: center;
+    padding: 20px 25px;
+    border: 2px solid black;
+}
+
+button {
+	width: 100px;
+	height: 30px;
+	font-weight: bold;
+	position: relative;
+	right: 0;
+	margin-top: 10px;
+	margin-right: 10px;
+  filter: drop-shadow(2px -2px 5px gray);
+}
+
+/* make button bigger on hover */
+button:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+input {
+  width: 250px;
+  text-align: center;
+	margin: 1%;
+	border-radius: 4px;
+	outline: none;
+	background-color: #FFFCEC;
+	overflow: auto;
+	border: solid 1px grey;
+	box-shadow: 0px 0px 15px 2px grey;
+}
+
+label {
+  font-weight: bold;
+}
