@@ -15,9 +15,9 @@ class Auction extends Component {
     return (
       <div className="auction">
         <h4>{this.props.name}</h4>
-        <h4>{this.props.description}</h4>
-        <h4>{this.props.picture}</h4>
-        <h4>{this.props.lowestBid}</h4>
+        <p>{this.props.description}</p>
+        <p>{this.props.picture}</p>
+        <p>{this.props.lowestBid}</p>
       </div>
     );
   }

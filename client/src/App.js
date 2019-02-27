@@ -6,7 +6,8 @@ import Layout from './hoc/Layout/Layout';
 
 class App extends Component {
 state = {
-    data: null
+    data: null,
+    isAuthenticated: true,
   };
 
   componentDidMount() {
