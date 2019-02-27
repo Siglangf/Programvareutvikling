@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import LoginPage from "./components/LoginPage/LoginPage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import AuctionBuilder from "./containers/AuctionBuilder/AuctionBuilder";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 //Main site of the application, this is where we import other components
 
@@ -34,15 +35,15 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <Layout />
-        <main className="Content">
-          <Header />
-          <LoginPage />
-          <AboutUs />
-          <AuctionBuilder />
-        </main>
-      </React.Fragment>
+        <Header />
+         <Switch>
+            <Route path="/auctions" component={AuctionBuilder} />
+            <Route path="/login" exact component={LoginPage} />
+            <Route path="/" component={AboutUs} />
+          </Switch>
+       </div>
     );
   }
 }
