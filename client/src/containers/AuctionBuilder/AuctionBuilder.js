@@ -3,8 +3,7 @@ import "./AuctionBuilder.css";
 import Auction from "../AuctionBuilder/Auction/Auction";
 import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
 import Axios from "axios";
-import Button from '../../components/UI/Button/Button';
-import SearchBar from '../../components/UI/SearchBar/SearchBar';
+import { access } from "fs";
 
 class AuctionBuilder extends Component {
   state = {
@@ -19,7 +18,7 @@ class AuctionBuilder extends Component {
   };
 
   callBackendAPI = async () => {
-    const response = await Axios.get("/api/products/all");
+    const response = await Axios.get("/api/auctions/all");
     const body = response.data;
 
     if (response.status !== 200) {
@@ -65,10 +64,9 @@ class AuctionBuilder extends Component {
       <div className="auctionBoxes">
         <h1>Auksjoner</h1>
         <div>
-          <SearchBar />
-          <Button clicked={this.handleCreateAuctionClick}>
-            Ny annonse
-          </Button>
+          <button onClick={this.handleCreateAuctionClick}>
+            Lag ny auksjon
+          </button>
         </div>
         {modal}
         {auctions}

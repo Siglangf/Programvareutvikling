@@ -1,29 +1,8 @@
-.aboutus {  
-  width: 100%;
+.aboutus {
+  width: 80%;
   margin: 0 auto;
-  margin-top: -20px;
+  margin-top: 70px;
   text-align: center;
-  background-color: white;
-}
-
-.aboutUsContainer{
-  padding-top: 150px;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.aboutUsContainerBox1{
-  width: 55%;
-  padding-left: 25px;
-  padding-right: 25px;
-}
-
-.aboutUsContainerBox2{
-  width: 30%;
-  color: white;
-  background: #35424a;
-  margin-right: 5%;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding: 0 25px;
+  border: 2px solid black;
 }
