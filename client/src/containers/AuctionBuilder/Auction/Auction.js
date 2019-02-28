@@ -1,21 +1,22 @@
-import React, { Component } from "react";
-import "./Auction.css";
+import React, {Component} from 'react';
+import './Auction.css';
 
 class Auction extends Component {
-  state = {
-    productID: this.props.ID,
-    title: this.props.title,
-    description: this.props.description,
-    image: this.props.image,
-    highestBid: this.props.highestBid
-  };
 
-  render() {
+  state= {
+    id: this.props.id,
+    name: this.props.name,
+    description: this.props.description,
+    picture: this.props.picture,
+    currentBid: this.props.bid
+  }
+
+  render(){
     return (
       <div className="auction">
-        <h4>{this.props.title}</h4>
+        <h4>{this.props.name}</h4>
         <p>{this.props.description}</p>
-        <p>{this.props.image}</p>
+        <p>{this.props.picture}</p>
         <p>{this.props.lowestBid}</p>
       </div>
     );
