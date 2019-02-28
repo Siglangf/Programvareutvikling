@@ -1,5 +1,6 @@
 import React, {Component} from   'react';
 import { runInThisContext } from 'vm';
+import './AuctionModal.css';
 
 class AuctionModal extends Component {
   //does not need any info
@@ -41,11 +42,11 @@ class AuctionModal extends Component {
     return(
       <React.Fragment>
     <h4>Skriv inn info om produktet</h4>
-        <form>
-          <input type="text" name="navn" placeholder="Navn" onChange={this.handleNameChange}/>
-          <input type="text" name="beskrivelse" placeholder="Beskrivelse" onChange={this.handleDescChange}/>
-          <input type="text" name="bilde" placeholder="Bilde her..." onChange={this.handlePictureChange} />
-          <input type="number" name="minstebud" placeholder="Startbud" min="1" onChange={this.handleBidChange}/>
+        <form className="inputFields">
+          <input type="text" name="navn" placeholder="Navn" className="inputElementName" onChange={this.handleNameChange}/>
+          <input type="text" name="beskrivelse" placeholder="Beskrivelse" className="inputElementDesc" onChange={this.handleDescChange}/>
+          <input type="text" name="bilde" placeholder="Bilde her..." className="inputElementImage" onChange={this.handlePictureChange} />
+          <input type="number" name="minstebud" placeholder="Startbud" min="1" className="inputElementBid" onChange={this.handleBidChange}/>
          <button onClick={this.handleSubmit}>Submit</button>
           </form>
     </React.Fragment>

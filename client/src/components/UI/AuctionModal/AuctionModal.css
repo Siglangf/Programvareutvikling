@@ -1,0 +1,37 @@
+.inputFields input{
+  font-size: 14px;
+}
+
+.inputElementName {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  width: 400px; 
+  height: 50px;
+}
+
+.inputElementDesc {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  height: 100px;
+  width: 400px;
+}
+
+/* NOT FINISHED */
+.inputElementImage {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  height: 100px;
+  width: 400px;
+}
+
+.inputElementBid {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  height: 100px;
+  width: 400px;
+}
+

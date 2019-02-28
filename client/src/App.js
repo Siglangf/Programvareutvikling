@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Layout from "./hoc/Layout/Layout";
-import Header from "./components/Header/Header";
 import LoginPage from "./components/LoginPage/LoginPage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import AuctionBuilder from "./containers/AuctionBuilder/AuctionBuilder";
@@ -37,16 +36,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <main>
         <Layout />
-        <Header />
          <Switch>
             <Route path="/auctions" component={AuctionBuilder} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/contact" exact component={ContactUs} />
             <Route path="/" component={AboutUs} />
           </Switch>
-       </div>
+       </main>
     );
   }
 }

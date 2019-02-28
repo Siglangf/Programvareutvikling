@@ -1,10 +1,11 @@
 .auctionBoxes {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 70px;
   text-align: center;
   padding: 0 25px;
-  border: 2px solid black;
   flex-wrap: wrap;
+  background-color: white;
+  margin-bottom: 300px;
 }
 
