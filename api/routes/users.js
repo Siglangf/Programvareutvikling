@@ -8,6 +8,7 @@ let server = require("../../server"); //get pool-connection from server
 //Gets all users from endpoint /api/users/all
 router.get("/all", async (req, res) => {
   const users = await sendQuery(server.pool, "SELECT * FROM users");
+<<<<<<< HEAD
   res.send(users);
 });
 
@@ -91,4 +92,9 @@ router.get('/login', async (req, res) => {
 });
 
 
+=======
+  res.send({ express: users });
+});
+
+>>>>>>> 69dbf1f22b74899c657c988bd3edcb8a260673ba
 module.exports = router;
