@@ -1,12 +1,12 @@
 .aboutus {  
   width: 100%;
   margin: 0 auto;
+  margin-top: -20px;
   text-align: center;
-  border: 2px solid black;
   background-color: white;
 }
 
 .aboutustext {
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
 }
