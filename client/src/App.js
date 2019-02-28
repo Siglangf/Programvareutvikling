@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import AuctionBuilder from "./containers/AuctionBuilder/AuctionBuilder";
 import ContactUs from './components/ContactUs/ContactUs';
+import Footer from './components/UI/Footer/Footer';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/contact" exact component={ContactUs} />
             <Route path="/" component={AboutUs} />
           </Switch>
+          <Footer />
        </main>
     );
   }
