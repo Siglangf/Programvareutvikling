@@ -6,7 +6,7 @@ const sendQuery = require("../database");
 let server = require("../../server"); //get pool-connection from server
 
 //sette inn auksjon
-router.post('/auction', async (req, res) => {
+router.post("/auction", async (req, res) => {
   const title = req.body.state.title;
   const description = req.body.state.description;
   const image = req.body.state.image; //forsiktig med filtype
@@ -16,10 +16,19 @@ router.post('/auction', async (req, res) => {
   const sellerID = req.body.state.userID;
   const endDate = req.body.state.endDate; //forsiktig med datatype
 
+  const userValueArray = [
+    title,
+    description,
+    image,
+    highestBid,
+    highestBidderID,
+    startingBid,
+    sellerID,
+    endDate
+  ];
 
-  const userValueArray = [title, description, image, highestBid, highestBidderID, startingBid, sellerID, endDate];
-  
-  const sqlquery = ("INSERT INTO product (title, description, image, highestBid, highestBidderID, startingBid, sellerID, endDate) VALUES ?")
+  const sqlquery =
+    "INSERT INTO products (title, description, image, highestBid, highestBidderID, startingBid, sellerID, endDate) VALUES ?";
 
   await sendQuery(server.pool, sqlquery, userValueArray);
 
@@ -27,12 +36,18 @@ router.post('/auction', async (req, res) => {
 });
 
 //oppdatere highestBidder
-router.post('/newBid', async (req, res) => {
+router.post("/newBid", async (req, res) => {
   const userID = req.body.state.userID;
   const productID = req.body.state.productID;
   const highestBid = req.body.state.highestBid;
-  
-  const sqlquery = "UPDATE product SET highestBid = " + highestBid + ", highestBidder = " + userID + " WHERE productID = " + productID; 
+
+  const sqlquery =
+    "UPDATE products SET highestBid = " +
+    highestBid +
+    ", highestBidder = " +
+    userID +
+    " WHERE productID = " +
+    productID;
 
   await sendQuery(server.pool, sqlquery);
 
@@ -40,8 +55,8 @@ router.post('/newBid', async (req, res) => {
 });
 
 //henter auskjoner
-router.get('/auctions', async (req, res) =>{
-  const sqlquery = ("SELECT * FROM product ORDER BY endDate ASC");
+router.get("/all", async (req, res) => {
+  const sqlquery = "SELECT * FROM products ORDER BY endDate ASC";
   const auctions = await sendQuery(server.pool, sqlquery);
 
   res.send(auctions);
