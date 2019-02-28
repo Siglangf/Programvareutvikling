@@ -1,8 +1,14 @@
 .header {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  font-weight: bold;
+  color: white;
   margin-top: 70px;
   text-align: center;
-  padding: 0 25px;
-  border: 2px solid black;
+  height: 400px;
+  background: url('../../assets/bakgrunn.jpg') no-repeat center center;
+  display: flex;
+  flex-direction: column;  
+  justify-content: center; 
+  align-items: center; 
 }
