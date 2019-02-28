@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { runInThisContext } from "vm";
 import "./AuctionModal.css";
+import Button from '../Button/Button';
 class AuctionModal extends Component {
   //does not need any info
   state = {
@@ -72,7 +73,7 @@ class AuctionModal extends Component {
             min="1"
             onChange={this.handleBidChange}
           />
-          <button onClick={this.handleSubmit}>Submit</button>
+          <Button clicked={this.handleSubmit}>Submit</Button>
         </form>
       </React.Fragment>
     );
