@@ -11,7 +11,7 @@ class SearchBar extends Component {
       <div className="searchBarContainer">
         <div className="searchBarBar" style={{flex: 3}}>
         <input 
-          style={{width: '300px'}}
+          style={{width: '300px', height: '40px', fontSize: '16px'}}
           type="text"
           className="searchBarField"
           placeHolder="Søk etter en auksjon her..."
