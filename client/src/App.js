@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import AuctionBuilder from "./containers/AuctionBuilder/AuctionBuilder";
 import ContactUs from './components/ContactUs/ContactUs';
+import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 //Main site of the application, this is where we import other components
