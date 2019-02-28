@@ -1,3 +1,7 @@
+.inputFields {
+  display: block;
+}
+
 .inputFields input{
   font-size: 14px;
 }

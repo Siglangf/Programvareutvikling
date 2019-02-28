@@ -1,11 +1,15 @@
 .NavigationItems {
-  font-size: 16px;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  text-transform: uppercase;
-  display: inline;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100%;
+  font-size: 16px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 950px) {
   .NavigationItems {
       flex-flow: row;
   }
