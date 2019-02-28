@@ -1,46 +1,46 @@
-import React, {Component} from 'react';
-import './AuctionBuilder.css';
-import Auction from '../AuctionBuilder/Auction/Auction';
-import AuctionModal from '../../components/UI/AuctionModal/AuctionModal';
-import Axios from 'axios';
+import React, { Component } from "react";
+import "./AuctionBuilder.css";
+import Auction from "../AuctionBuilder/Auction/Auction";
+import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
+import Axios from "axios";
 
 class AuctionBuilder extends Component {
-
   state = {
-    auctions: [
-    ],
-    isOpen: false,
-  }
+    auctions: [],
+    isOpen: false
+  };
 
   componentDidMount = () => {
-    this.callBackendAPI().then(res => this.setState({auctions: res})).catch(err => console.log(err));
-  }
+    this.callBackendAPI()
+      .then(res => this.setState({ auctions: res }))
+      .catch(err => console.log(err));
+  };
 
   callBackendAPI = async () => {
-    const response = await Axios.get("/api/auctions/all");
+    const response = await Axios.get("/api/products/all");
     const body = response.data;
 
-    if (response.status !== 200){
+    if (response.status !== 200) {
       throw Error(response.status);
     }
     return body;
-  }
+  };
 
   //handle click on auction-button
-  handleCreateAuctionClick = (auction) => {
-    this.setState({isOpen: !this.state.isOpen});
-  }
+  handleCreateAuctionClick = auction => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
   //creates a new auction object
-  createAuction = (auction) => {
+  createAuction = auction => {
     const auc = auction;
-    this.setState( {auctions: this.state.auctions.concat(auc)} );
+    this.setState({ auctions: this.state.auctions.concat(auc) });
     console.log("test");
-  }
+  };
 
-  render(){
+  render() {
     //makes adjacent Auction-objects from state
     const auctions = this.state.auctions.map((auc, i) => (
-      <Auction 
+      <Auction
         name={auc.title}
         id={auc.productID}
         key={i}
@@ -51,23 +51,25 @@ class AuctionBuilder extends Component {
         endDate={auc.endDate}
       />
     ));
-    
+
     let modal = null;
     //if the button is clicked, show the form
-    if (this.state.isOpen){
-      modal = <AuctionModal 
-      submit={this.createAuction}/>;
+    if (this.state.isOpen) {
+      modal = <AuctionModal submit={this.createAuction} />;
     }
-    return(
+    return (
       <div className="auctionBoxes">
-     <h1>Auksjoner</h1>
-      <div><button onClick={this.handleCreateAuctionClick}>Lag ny auksjon</button></div>
-      {modal}
-      {auctions}
+        <h1>Auksjoner</h1>
+        <div>
+          <button onClick={this.handleCreateAuctionClick}>
+            Lag ny auksjon
+          </button>
+        </div>
+        {modal}
+        {auctions}
       </div>
-    ); 
+    );
   }
-
 }
 
 export default AuctionBuilder;
