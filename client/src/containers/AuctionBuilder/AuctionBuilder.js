@@ -2,22 +2,28 @@ import React, {Component} from 'react';
 import './AuctionBuilder.css';
 import Auction from '../AuctionBuilder/Auction/Auction';
 import AuctionModal from '../../components/UI/AuctionModal/AuctionModal';
+import Axios from 'axios';
 
 class AuctionBuilder extends Component {
 
   state = {
     auctions: [
-      {
-        id: 123,
-        name: 'Test1',
-        description: 'Denne varen er fin',
-        picture: 'bilde',
-        highestBid: 100,
-        lowestBid: 50,
-        endDate: '10 mars'  
-      },
     ],
     isOpen: false,
+  }
+
+  componentDidMount = () => {
+    this.callBackendAPI().then(res => this.setState({auctions: res})).catch(err => console.log(err));
+  }
+
+  callBackendAPI = async () => {
+    const response = await Axios.get("/api/auctions/all");
+    const body = response.data;
+
+    if (response.status !== 200){
+      throw Error(response.status);
+    }
+    return body;
   }
 
   //handle click on auction-button
@@ -35,12 +41,12 @@ class AuctionBuilder extends Component {
     //makes adjacent Auction-objects from state
     const auctions = this.state.auctions.map((auc, i) => (
       <Auction 
-        name={auc.name}
-        id={auc.id}
+        name={auc.title}
+        id={auc.productID}
         key={i}
         description={auc.description}
-        picture={auc.picture}
-        lowestBid={auc.lowestBid}
+        picture={auc.image}
+        lowestBid={auc.startingBid}
         highestBid={auc.highestBid}
         endDate={auc.endDate}
       />

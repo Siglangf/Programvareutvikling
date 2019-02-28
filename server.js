@@ -1,9 +1,11 @@
 const express = require("express");
 const mysql = require("mysql");
 const users = require("./api/routes/users");
+const auctions = require("./api/routes/auctions");
 const app = express();
 const sendQuery = require("./api/database");
 const port = process.env.PORT || 5000;
+
 
 let pool = mysql.createPool({
   connectionLimit: 10,
@@ -40,5 +42,6 @@ app.get("/express_backend", (req, res) => {
 /*When an endpoint with /api/users/<something more> is called from react, 
 the server sends the job to users.js in the api/routes/ folder*/
 app.use("/api/users", users);
+app.use("/api/auctions", auctions);
 
 exports.pool = pool; //exports the connection so it can be required in the users.js module
