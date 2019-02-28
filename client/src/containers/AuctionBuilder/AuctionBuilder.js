@@ -41,13 +41,15 @@ class AuctionBuilder extends Component {
     //makes adjacent Auction-objects from state
     const auctions = this.state.auctions.map((auc, i) => (
       <Auction
-        name={auc.title}
-        id={auc.productID}
+        title={auc.title}
+        productID={auc.productID}
         key={i}
         description={auc.description}
-        picture={auc.image}
-        lowestBid={auc.startingBid}
+        image={auc.image}
+        startingBid={auc.startingBid}
         highestBid={auc.highestBid}
+        highestBidder={auc.highestBidder}
+        sellerID={auc.sellerID}
         endDate={auc.endDate}
       />
     ));

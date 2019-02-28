@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { runInThisContext } from "vm";
-import './AuctionModal.css';
+import "./AuctionModal.css";
 class AuctionModal extends Component {
   //does not need any info
   state = {
