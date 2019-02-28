@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React, {Component} from   'react';
-import { runInThisContext } from 'vm';
-import './AuctionModal.css';
-=======
 import React, { Component } from "react";
 import { runInThisContext } from "vm";
->>>>>>> 776e4ffb3046c81f5641ad3b8d392ded719c2dcb
-
+import './AuctionModal.css';
 class AuctionModal extends Component {
   //does not need any info
   state = {
@@ -16,23 +10,18 @@ class AuctionModal extends Component {
     startingBid: "",
     highestBid: ""
   };
-
   handleNameChange = e => {
     this.setState({ title: e.target.value });
   };
-
   handleDescChange = e => {
     this.setState({ desc: e.target.value });
   };
-
   handlePictureChange = e => {
     this.setState({ image: e.target.value });
   };
-
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
   };
-
   handleSubmit = e => {
     e.preventDefault();
     const title = this.state.title;
@@ -49,42 +38,34 @@ class AuctionModal extends Component {
     };
     this.props.submit(auc);
   };
-
   render() {
     return (
       <React.Fragment>
-<<<<<<< HEAD
-    <h4>Skriv inn info om produktet</h4>
-        <form className="inputFields">
-          <input type="text" name="navn" placeholder="Navn" className="inputElementName" onChange={this.handleNameChange}/>
-          <input type="text" name="beskrivelse" placeholder="Beskrivelse" className="inputElementDesc" onChange={this.handleDescChange}/>
-          <input type="text" name="bilde" placeholder="Bilde her..." className="inputElementImage" onChange={this.handlePictureChange} />
-          <input type="number" name="minstebud" placeholder="Startbud" min="1" className="inputElementBid" onChange={this.handleBidChange}/>
-         <button onClick={this.handleSubmit}>Submit</button>
-          </form>
-    </React.Fragment>
-=======
         <h4>Skriv inn info om produktet</h4>
-        <form>
+        <form className="inputFields">
           <input
+            className="inputElementName"
             type="text"
             title="navn"
             placeholder="Navn"
             onChange={this.handleNameChange}
           />
           <input
+            className="inputElementDesc"
             type="text"
             title="beskrivelse"
             placeholder="Beskrivelse"
             onChange={this.handleDescChange}
           />
           <input
+            className="inputElementImage"
             type="text"
             title="bilde"
             placeholder="Bilde her..."
             onChange={this.handlePictureChange}
           />
           <input
+            className="inputElementBid"
             type="number"
             title="minstebud"
             placeholder="Startbud"
@@ -94,9 +75,7 @@ class AuctionModal extends Component {
           <button onClick={this.handleSubmit}>Submit</button>
         </form>
       </React.Fragment>
->>>>>>> 776e4ffb3046c81f5641ad3b8d392ded719c2dcb
     );
   }
 }
-
 export default AuctionModal;
