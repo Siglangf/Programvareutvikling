@@ -3,6 +3,7 @@ import "./AuctionBuilder.css";
 import Auction from "../AuctionBuilder/Auction/Auction";
 import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
 import Axios from "axios";
+import Button from '../../components/UI/Button/Button';
 
 class AuctionBuilder extends Component {
   state = {
@@ -63,9 +64,9 @@ class AuctionBuilder extends Component {
       <div className="auctionBoxes">
         <h1>Auksjoner</h1>
         <div>
-          <button onClick={this.handleCreateAuctionClick}>
-            Lag ny auksjon
-          </button>
+          <Button clicked={this.handleCreateAuctionClick}>
+            Ny annonse
+          </Button>
         </div>
         {modal}
         {auctions}
