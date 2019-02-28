@@ -3,9 +3,7 @@ const mysql = require("mysql");
 const users = require("./api/routes/users");
 const auctions = require("./api/routes/auctions");
 const app = express();
-const sendQuery = require("./api/database");
 const port = process.env.PORT || 5000;
-
 
 let pool = mysql.createPool({
   connectionLimit: 10,
