@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { runInThisContext } from "vm";
-
+import './AuctionModal.css';
 class AuctionModal extends Component {
   //does not need any info
   state = {
@@ -10,23 +10,18 @@ class AuctionModal extends Component {
     startingBid: "",
     highestBid: ""
   };
-
   handleNameChange = e => {
     this.setState({ title: e.target.value });
   };
-
   handleDescChange = e => {
     this.setState({ desc: e.target.value });
   };
-
   handlePictureChange = e => {
     this.setState({ image: e.target.value });
   };
-
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
   };
-
   handleSubmit = e => {
     e.preventDefault();
     const title = this.state.title;
@@ -43,31 +38,34 @@ class AuctionModal extends Component {
     };
     this.props.submit(auc);
   };
-
   render() {
     return (
       <React.Fragment>
         <h4>Skriv inn info om produktet</h4>
-        <form>
+        <form className="inputFields">
           <input
+            className="inputElementName"
             type="text"
             title="navn"
             placeholder="Navn"
             onChange={this.handleNameChange}
           />
           <input
+            className="inputElementDesc"
             type="text"
             title="beskrivelse"
             placeholder="Beskrivelse"
             onChange={this.handleDescChange}
           />
           <input
+            className="inputElementImage"
             type="text"
             title="bilde"
             placeholder="Bilde her..."
             onChange={this.handlePictureChange}
           />
           <input
+            className="inputElementBid"
             type="number"
             title="minstebud"
             placeholder="Startbud"
@@ -80,5 +78,4 @@ class AuctionModal extends Component {
     );
   }
 }
-
 export default AuctionModal;
