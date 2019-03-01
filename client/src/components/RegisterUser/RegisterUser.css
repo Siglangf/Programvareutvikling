@@ -1,6 +1,6 @@
 .registerUser {
   margin: 0 auto;
-  width: 25%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   margin-top: 65px;
