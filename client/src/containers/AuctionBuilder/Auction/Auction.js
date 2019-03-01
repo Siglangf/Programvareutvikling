@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Auction.css";
+import Button from '../../../components/UI/Button/Button';
 
 class Auction extends Component {
   state = {
@@ -17,12 +18,22 @@ class Auction extends Component {
 
   render() {
     return (
+      <React.Fragment>
       <div className="auction">
+        <p className="auctionImage">Bilde: {this.props.image}</p>
         <h4>Tittel: {this.props.title}</h4>
         <p>Beskrivelse: {this.props.description}</p>
-        <p>Bilde: {this.props.image}</p>
-        <p>Nåværende bud: {this.props.startingBid},- kr</p>
+        <p>Nåværende bud: {this.props.highestBid},- kr</p>
+        <input
+            className="bidInputField"
+            type="number"
+            title="bud"
+            placeholder="Legg inn bud her"
+            onChange={this.handleNameChange}
+          />
+        <Button className="auctionButton">Legg inn bud</Button>
       </div>
+      </React.Fragment>
     );
   }
 }

@@ -85,6 +85,7 @@ class AuctionBuilder extends Component {
           <Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
         </div>
         {modal}
+        <br />
         {auctions}
       </div>
     );
