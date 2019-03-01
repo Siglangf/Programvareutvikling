@@ -27,20 +27,20 @@ class RegisterUser extends Component {
   };
 
   validatePhoneNumber = number => {
-    console.log("tlf nr: " + /^[0-9]{8}$/.test(number));
+    return /^[0-9]{8}$/.test(number);
   };
 
   validateZipCode = zipcode => {
-    console.log("zipcode: " + (zipcode.length >= 3));
+    return zipcode.length >= 3;
   };
 
   validateStreetName = street => {
-    console.log("street: " + (street.length >= 5));
+    return street.length >= 5;
   };
 
   validateEmail = email => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log("email: " + re.test(String(email).toLowerCase()));
+    return re.test(String(email).toLowerCase());
   };
 
   handleFirstNameChange = e => {
