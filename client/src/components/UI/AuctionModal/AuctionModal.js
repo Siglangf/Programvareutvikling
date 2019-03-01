@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { runInThisContext } from "vm";
 import "./AuctionModal.css";
-import Button from '../Button/Button';
+import Button from "../Button/Button";
 class AuctionModal extends Component {
   //does not need any info
   state = {
+    productID: "",
     title: "",
     desc: "",
     image: "",
     startingBid: "",
-    highestBid: ""
+    highestBid: "",
+    sellerID: "",
+    endDate: ""
   };
   handleNameChange = e => {
     this.setState({ title: e.target.value });
@@ -25,17 +28,22 @@ class AuctionModal extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
+    const productID = this.state.productID;
     const title = this.state.title;
     const desc = this.state.desc;
     const image = this.state.image;
     const bid = this.state.startingBid;
-    const auc = {
-      id: "123",
+    const sellerID = this.state.sellerID;
+    const endDate = this.state.endDate;
+
+    let auc = {
+      productID: productID,
       title: title,
-      description: desc,
+      desc: desc,
       image: image,
-      startingBid: bid,
-      highestBid: bid
+      bid: bid,
+      sellerID: sellerID,
+      endDate: endDate
     };
     this.props.submit(auc);
   };

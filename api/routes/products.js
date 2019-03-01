@@ -3,43 +3,47 @@
 const express = require("express");
 const router = express.Router();
 const sendQuery = require("../database");
+const bodyparser = require("body-parser");
 let server = require("../../server"); //get pool-connection from server
+const generateValuelist = require("../helpfunctions").generateValuelist;
+
+router.use(bodyparser.urlencoded({ extended: false }));
+router.use(bodyparser.json());
 
 //sette inn auksjon
-router.post("/auction", async (req, res) => {
-  const title = req.body.state.title;
-  const description = req.body.state.description;
-  const image = req.body.state.image; //forsiktig med filtype
-  const startingBid = req.body.state.startingBid;
-  const highestBid = startingBid;
-  const highestBidderID = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
-  const sellerID = req.body.state.userID;
-  const endDate = req.body.state.endDate; //forsiktig med datatype
+router.post("/newProduct", async (req, res) => {
+  const title = req.body.title;
+  const description = req.body.description;
+  const image = req.body.image; //forsiktig med filtype
+  const startingBid = parseInt(req.body.startingBid);
+  const highestBid = parseInt(startingBid);
+  const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
+  const sellerID = 1; //req.body.userID;
+  const endDate = "2019-03-31"; //req.body.endDate; //forsiktig med datatype
 
   const userValueArray = [
     title,
     description,
     image,
     highestBid,
-    highestBidderID,
+    highestBidder,
     startingBid,
     sellerID,
     endDate
   ];
 
-  const sqlquery =
-    "INSERT INTO products (title, description, image, highestBid, highestBidderID, startingBid, sellerID, endDate) VALUES ?";
-
-  await sendQuery(server.pool, sqlquery, userValueArray);
-
+  sqlquery =
+    "INSERT INTO products (title, description, image, highestBid, highestBidder, startingBid, sellerID, endDate) VALUES " +
+    generateValuelist(userValueArray);
+  await sendQuery(server.pool, sqlquery);
   res.send("Product inserted into table with startingbid: " + startingBid);
 });
 
 //oppdatere highestBidder
 router.post("/newBid", async (req, res) => {
-  const userID = req.body.state.userID;
-  const productID = req.body.state.productID;
-  const highestBid = req.body.state.highestBid;
+  const userID = req.body.userID;
+  const productID = req.body.productID;
+  const highestBid = req.body.highestBid;
 
   const sqlquery =
     "UPDATE products SET highestBid = " +

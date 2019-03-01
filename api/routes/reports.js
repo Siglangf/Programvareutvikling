@@ -6,16 +6,21 @@ const sendQuery = require("../database");
 let server = require("../../server"); //get pool-connection from server
 
 //sette inn i reports
-router.post('/insertReport', async (req, res) => {
-  const reportedUserID = req.body.state.reportedUserID;
-  const reportingUserID = req.body.state.userID;
-  const productID = req.body.state.productID;
-  const description = req.body.state.description;
+router.post("/insertReport", async (req, res) => {
+  const reportedUserID = req.body.reportedUserID;
+  const reportingUserID = req.body.userID;
+  const productID = req.body.productID;
+  const description = req.body.description;
 
+  const userValueArray = [
+    reportedUserID,
+    reportingUserID,
+    productID,
+    description
+  ];
 
-  const userValueArray = [reportedUserID, reportingUserID, productID, description];
-
-  const sqlquery = ("INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ?");
+  const sqlquery =
+    "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ?";
 
   await sendQuery(server.pool, sqlquery, userValueArray);
 
@@ -23,10 +28,9 @@ router.post('/insertReport', async (req, res) => {
 });
 
 //hente reports
-router.get('/reports', async (req, res) =>{
-  
-  const sqlquery = ("SELECT * FROM reports ORDER BY reportedUserID ASC");
-  
+router.get("/reports", async (req, res) => {
+  const sqlquery = "SELECT * FROM reports ORDER BY reportedUserID ASC";
+
   const reports = await sendQuery(server.pool, sqlquery);
 
   res.send(reports);

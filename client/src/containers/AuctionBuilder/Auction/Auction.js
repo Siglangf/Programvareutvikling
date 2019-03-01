@@ -18,10 +18,10 @@ class Auction extends Component {
   render() {
     return (
       <div className="auction">
-        <h4>{this.props.title}</h4>
-        <p>{this.props.description}</p>
-        <p>{this.props.image}</p>
-        <p>{this.props.startingBid}</p>
+        <h4>Tittel: {this.props.title}</h4>
+        <p>Beskrivelse: {this.props.description}</p>
+        <p>Bilde: {this.props.image}</p>
+        <p>Nåværende bud: {this.props.startingBid},- kr</p>
       </div>
     );
   }
