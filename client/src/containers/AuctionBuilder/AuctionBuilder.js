@@ -3,8 +3,8 @@ import "./AuctionBuilder.css";
 import Auction from "../AuctionBuilder/Auction/Auction";
 import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
 import Axios from "axios";
-import Button from '../../components/UI/Button/Button';
-import SearchBar from '../../components/UI/SearchBar/SearchBar';
+import Button from "../../components/UI/Button/Button";
+import SearchBar from "../../components/UI/SearchBar/SearchBar";
 
 class AuctionBuilder extends Component {
   state = {
@@ -36,7 +36,22 @@ class AuctionBuilder extends Component {
   createAuction = auction => {
     const auc = auction;
     this.setState({ auctions: this.state.auctions.concat(auc) });
-    console.log("test");
+
+    Axios.post("/api/products/newProduct", {
+      productID: auc.productID,
+      title: auc.title,
+      description: auc.desc,
+      image: auc.image,
+      startingBid: auc.bid,
+      sellerID: auc.sellerID,
+      endDate: auc.endDate
+    })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {
@@ -66,9 +81,7 @@ class AuctionBuilder extends Component {
         <h1>Auksjoner</h1>
         <div>
           <SearchBar />
-          <Button clicked={this.handleCreateAuctionClick}>
-            Ny annonse
-          </Button>
+          <Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
         </div>
         {modal}
         {auctions}
