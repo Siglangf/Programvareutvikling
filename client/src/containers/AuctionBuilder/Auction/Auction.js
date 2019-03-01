@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Auction.css";
 import Button from '../../../components/UI/Button/Button';
+import CountdownTimer from '../../../components/UI/CountdownTimer/CountdownTimer';
 
 class Auction extends Component {
   state = {
@@ -24,6 +25,7 @@ class Auction extends Component {
         <h4>Tittel: {this.props.title}</h4>
         <p>Beskrivelse: {this.props.description}</p>
         <p>Nåværende bud: {this.props.highestBid},- kr</p>
+        <CountdownTimer auctionTime={this.props.endDate - new Date().getTime}/>
         <input
             className="bidInputField"
             type="number"
