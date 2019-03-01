@@ -36,7 +36,6 @@ class AuctionBuilder extends Component {
   createAuction = auction => {
     const auc = auction;
     this.setState({ auctions: this.state.auctions.concat(auc) });
-    console.log("test");
   };
 
   render() {
