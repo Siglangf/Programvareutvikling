@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 
 class SearchBar extends Component {
-
-  state = {
-    search: '',
-  };
-
   render(){
     return (
       <div className="searchBarContainer">
@@ -15,7 +10,7 @@ class SearchBar extends Component {
           type="text"
           className="searchBarField"
           placeHolder="Søk etter en auksjon her..."
-          /*onChange={e => this.props.fetchAuctions(e.target.value)}*/
+          onChange={this.props.changed}
           maxLength={50}
         />
           <span className="fa fa-search" />

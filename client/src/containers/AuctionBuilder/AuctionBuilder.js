@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import "./AuctionBuilder.css";
 import Auction from "../AuctionBuilder/Auction/Auction";
 import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
-import Axios from "axios";
+import axios from "axios";
 import Button from "../../components/UI/Button/Button";
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
 
 class AuctionBuilder extends Component {
   state = {
     auctions: [],
-    isOpen: false
+    isOpen: false,
+    searchField: '',
   };
 
   componentDidMount = () => {
@@ -19,7 +20,7 @@ class AuctionBuilder extends Component {
   };
 
   callBackendAPI = async () => {
-    const response = await Axios.get("/api/products/all");
+    const response = await axios.get("/api/products/all");
     const body = response.data;
 
     if (response.status !== 200) {
@@ -32,19 +33,24 @@ class AuctionBuilder extends Component {
   handleCreateAuctionClick = auction => {
     this.setState({ isOpen: !this.state.isOpen });
   };
+
+  //handles changes in auction bid
+  handleSearchChange = (e) => {
+    this.setState({searchField: e.target.value});
+  }
+
   //creates a new auction object
   createAuction = auction => {
     const auc = auction;
     this.setState({ auctions: this.state.auctions.concat(auc), isOpen: false });
-
-    Axios.post("/api/products/newProduct", {
-      productID: auc.productID,
-      title: auc.title,
-      description: auc.desc,
-      image: auc.image,
-      startingBid: auc.bid,
-      sellerID: auc.sellerID,
-      endDate: auc.endDate
+    axios.post("/api/products/newProduct", {
+    productID: auc.productID,
+    title: auc.title,
+    description: auc.desc,
+    image: auc.image,
+    startingBid: auc.bid,
+    sellerID: auc.sellerID,
+    endDate: auc.endDate
     })
       .then(function(response) {
         console.log(response);
@@ -52,22 +58,34 @@ class AuctionBuilder extends Component {
       .catch(function(error) {
         console.log(error);
       });
-  };
+  }
+
+  fetchAuctions = () => {
+    let searchedAuctions = [];
+    for (let i=0; i <this.state.auctions.length; i++){
+      if (this.state.auctions[i].title.toLowerCase().indexOf(this.state.searchField.toLowerCase()) !== -1 || this.state.searchField === ''){
+        searchedAuctions.push(this.state.auctions[i]);
+      }
+    }
+    return searchedAuctions;
+  }
 
   render() {
     //makes adjacent Auction-objects from state
-    const auctions = this.state.auctions.map((auc, i) => (
+    const searchedAuctions = this.fetchAuctions();
+    
+    const auctions =  searchedAuctions.map( (auc, i)=> (
       <Auction
-        title={auc.title}
-        productID={auc.productID}
-        key={i}
-        description={auc.description}
-        image={auc.image}
-        startingBid={auc.startingBid}
-        highestBid={auc.highestBid}
-        highestBidder={auc.highestBidder}
-        sellerID={auc.sellerID}
-        endDate={auc.endDate}
+      title={auc.title}
+      productID={auc.productID}
+      key={i}
+      description={auc.description}
+      image={auc.image}          
+      startingBid={auc.startingBid}
+      highestBid={auc.highestBid}
+      highestBidder={auc.highestBidder}
+      sellerID={auc.sellerID}
+      endDate={auc.endDate}
       />
     ));
 
@@ -81,7 +99,9 @@ class AuctionBuilder extends Component {
       <div className="auctionBoxes">
         <h1>Auksjoner</h1>
         <div>
-          <SearchBar />
+          <SearchBar 
+            changed={this.handleSearchChange}
+          />
           <Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
         </div>
         {modal}
