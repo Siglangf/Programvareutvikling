@@ -34,14 +34,15 @@ router.post("/register", async (req, res) => {
     lastName,
     phoneNumber,
     email,
-    password,
-    rating,
     zipCode,
     streetName,
-    isAdmin
+    isAdmin,
+    rating,
+    password
   ];
+
   let sqlquery =
-    "INSERT INTO users (firstName, lastName, phonenumber, email, zipcode, streetname, isAdmin, rating, password) VALUES ";
+    "INSERT INTO users (firstName, lastName, phonenumber, email, zipCode, streetName, isAdmin, rating, password) VALUES ";
   sqlquery = sqlquery + generateValuelist(userValueArray);
   await sendQuery(server.pool, sqlquery);
 
