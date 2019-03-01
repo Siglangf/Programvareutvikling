@@ -49,7 +49,7 @@ class AuctionModal extends Component {
   };
   render() {
     return (
-      <React.Fragment>
+        <div className="AuctionContainer">
         <h4>Skriv inn info om produktet</h4>
         <form className="inputFields">
           <input
@@ -83,7 +83,7 @@ class AuctionModal extends Component {
           />
           <Button clicked={this.handleSubmit}>Submit</Button>
         </form>
-      </React.Fragment>
+        </div>
     );
   }
 }

@@ -4,6 +4,12 @@
   margin: 20px 20px;
   text-align: center;
   padding: 0 25px;
-  border: 2px solid black;
+  outline: 3px solid #D85430;
+  border: 6px solid #374249;
   display: inline-block;
+}
+
+.auctionButton {
+  width: 60px;
+  height: 30px;
 }

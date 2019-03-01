@@ -2,7 +2,6 @@
   background-color: transparent;
   border: 3px solid #D85430;
   color: white;
-  text-transform: uppercase; 
   outline: none;
   cursor: pointer;
   font: inherit;
@@ -11,7 +10,8 @@
   font-weight: bold;
   border-radius: 25px;
   background: #37424a; 
-  width: 100px;
-  height: 65px; 
+  width: 70x;
+  height: 35px; 
+  padding-bottom: 30px;
 }
 
