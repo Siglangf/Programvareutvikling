@@ -3,6 +3,7 @@ import Button from '../../components/UI/Button/Button';
 import './RegisterUser.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { runInThisContext } from 'vm';
 
 class RegisterUser extends Component {
 
@@ -19,24 +20,25 @@ class RegisterUser extends Component {
   }
 
   validateName = (firstname, lastname) => {
-    return (firstname.length >= 1 && firstname.match(/^[A-Za-z]+$/)) && (lastname.length >= 1 && lastname.match(/^[A-Za-z]+$/));
+    return (firstname.length >= 1 && (/^[A-Za-z]+$/).test(firstname)) && (lastname.length >= 1 && (/^[A-Za-z]+$/).test(lastname));
   }
 
   validatePhoneNumber = (number) => {
-    return number.match(/^[0-9]{8}$/)
+    console.log("tlf nr: " +  (/^[0-9]{8}$/).test(number));
   }
 
   validateZipCode = (zipcode) => {
-    return zipcode.length >= 3;
+    console.log("zipcode: " + (zipcode.length >=3))
+
   }
 
-  validateStreetName = (street) => {
-    return street.length >= 5;
+  validateStreetName = (street) => { 
+    console.log("street: " + (street.length >= 5));
   }
 
   validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    console.log("email: " + re.test(String(email).toLowerCase()));
   }
 
   handleFirstNameChange = e => {
@@ -72,38 +74,32 @@ class RegisterUser extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
     //checks that every form has one element and password is the same as repeated password
-    if (this.validateEmail(this.state.email) && this.validateName(this.state.firstName, this.state.lastName) && this.validatePhoneNumber(this.state.number) && this.validateStreetName(this.state.streetName) && this.validateZipCode(this.state.zipCode) && this.state.password === this.state.repeatedPassword ){
-      this.setState({validState: true});
-    }
-    if (this.state.validState){
       axios.post("/api/users/register", {
-        firstName: this.state.firstName,
-        lastName:this.state.lastName,
-        phoneNumber: this.state.phoneNumber,
-        email: this.state.email,
-        password: this.state.password,
-        zipCode:this.state.zipCode,
-        streetName:this.state.streetName,
-      })
-        .then(function(response) {
-          this.setState({
-            firstName:'',
-            lastName:'',
-            phoneNumber:'',
-            email:'',
-            password:'',
-            repeatedPassword: '',
-            zipCode:'',
-            streetName:'',
-            validState: false,
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+      firstName: this.state.firstName,
+      lastName:this.state.lastName,
+      phoneNumber: this.state.phoneNumber,
+      email: this.state.email,
+      password: this.state.password,
+      zipCode:this.state.zipCode,
+      streetName:this.state.streetName,
+    }).then(function(response) {
+      console.log(response);
+      this.setState({
+        firstName:'',
+        lastName:'',
+        phoneNumber:'',
+        email:'',
+        password:'',
+        repeatedPassword: '',
+        zipCode:'',
+        streetName:'',
+        validState: false,
+      });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   render(){
