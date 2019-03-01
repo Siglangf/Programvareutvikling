@@ -5,13 +5,13 @@ const router = express.Router();
 const sendQuery = require("../database");
 const bodyparser = require("body-parser");
 let server = require("../../server"); //get pool-connection from server
+const generateValuelist = require("../helpfunctions").generateValuelist;
 
 router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
 
 //sette inn auksjon
 router.post("/newProduct", async (req, res) => {
-  console.log(req.body);
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
@@ -31,27 +31,11 @@ router.post("/newProduct", async (req, res) => {
     sellerID,
     endDate
   ];
-  let sqlquery = "(";
-  for (let i = 0; i < userValueArray.length; i++) {
-    if (typeof userValueArray[i] === "string") {
-      sqlquery += '"' + userValueArray[i] + '"';
-    } else {
-      sqlquery += userValueArray[i];
-    }
-    if (i < userValueArray.length - 1) {
-      sqlquery += ",";
-    } else {
-      sqlquery += ");";
-    }
-  }
+
   sqlquery =
     "INSERT INTO products (title, description, image, highestBid, highestBidder, startingBid, sellerID, endDate) VALUES " +
-    sqlquery;
-
-  console.log(sqlquery);
-
+    generateValuelist(userValueArray);
   await sendQuery(server.pool, sqlquery);
-
   res.send("Product inserted into table with startingbid: " + startingBid);
 });
 
