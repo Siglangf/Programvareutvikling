@@ -8,6 +8,8 @@ import ContactUs from './components/ContactUs/ContactUs';
 import Footer from './components/UI/Footer/Footer';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Register from './components/RegisterUser/RegisterUser';
+
 
 //Main site of the application, this is where we import other components
 
@@ -43,6 +45,7 @@ class App extends Component {
             <Route path="/auctions" component={AuctionBuilder} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/contact" exact component={ContactUs} />
+            <Route path="/register" component={Register} />
             <Route path="/" component={AboutUs} />
           </Switch>
           <Footer />

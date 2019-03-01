@@ -18,6 +18,7 @@ router.get("/all", async (req, res) => {
 
 //register new user, use endpoint /api/users/register
 router.post("/register", async (req, res) => {
+  console.log("hei");
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const phoneNumber = parseInt(req.body.phoneNumber);
@@ -33,14 +34,15 @@ router.post("/register", async (req, res) => {
     lastName,
     phoneNumber,
     email,
-    password,
-    rating,
     zipCode,
     streetName,
-    isAdmin
+    isAdmin,
+    rating,
+    password
   ];
+
   let sqlquery =
-    "INSERT INTO user (firstName, lastName, phonenumber, email, zipcode, streetname, isAdmin, rating, password) VALUES ";
+    "INSERT INTO users (firstName, lastName, phonenumber, email, zipCode, streetName, isAdmin, rating, password) VALUES ";
   sqlquery = sqlquery + generateValuelist(userValueArray);
   await sendQuery(server.pool, sqlquery);
 
