@@ -3,7 +3,12 @@
 const express = require("express");
 const router = express.Router();
 const sendQuery = require("../database");
+const generateValuelist = require("../helpfunctions").generateValuelist;
 let server = require("../../server"); //get pool-connection from server
+const bodyparser = require("body-parser");
+
+router.use(bodyparser.urlencoded({ extended: false }));
+router.use(bodyparser.json());
 
 //Gets all users from endpoint /api/users/all
 router.get("/all", async (req, res) => {
@@ -11,38 +16,63 @@ router.get("/all", async (req, res) => {
   res.send(users);
 });
 
-//registrere bruker
-router.post('/register', async (req, res) => {
-  const firstName = req.body.state.firstName;
-  const lastName = req.body.state.lastName;
-  const phoneNumber = req.body.state.phoneNumber;
-  const email = req.body.state.email;
-  const password = req.body.state.password;
+//register new user, use endpoint /api/users/register
+router.post("/register", async (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const phoneNumber = parseInt(req.body.phoneNumber);
+  const email = req.body.email;
+  const password = req.body.password;
   const rating = 0;
-  const zipCode = req.body.state.zipCode;
-  const streetName = req.body.state.streetName;
+  const zipCode = parseInt(req.body.zipCode);
+  const streetName = req.body.streetName;
   const isAdmin = 0;
 
-  const userValueArray = [firstName, lastName, phoneNumber, email, password, rating, zipCode, streetName, isAdmin]
-  const sqlquery = ("INSERT INTO user (firstName, lastName, phonenumber, email, zipcode, streetname, isAdmin, rating, password) VALUES ?")
+  const userValueArray = [
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
+    password,
+    rating,
+    zipCode,
+    streetName,
+    isAdmin
+  ];
+  let sqlquery =
+    "INSERT INTO user (firstName, lastName, phonenumber, email, zipcode, streetname, isAdmin, rating, password) VALUES ";
+  sqlquery = sqlquery + generateValuelist(userValueArray);
+  await sendQuery(server.pool, sqlquery);
 
-  await sendQuery(server.pool, sqlquery, userValueArray);
-
-  res.send("User inserted into table with unique email: " + email)
+  res.send("User inserted into table with unique email: " + email);
 });
 
 //oppdatere brukerinnstillinger
 //dersom en brukerinnstilling ikke er endret, endres ikke variablen i front-end
-router.post('/updateUserSettings', async (req, res) => {
-  const firstName = req.body.state.firstName;
-  const lastName = req.body.state.lastName;
-  const phoneNumber = req.body.state.phoneNumber;
-  const email = req.body.state.email; //verifiser i front-end at email ikke allerede eksisterer
-  const password = req.body.state.password;
-  const zipCode = req.body.state.zipCode;
-  const streetName = req.body.state.streetName;
+router.post("/updateUserSettings", async (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const phoneNumber = req.body.phoneNumber;
+  const email = req.body.email; //verifiser i front-end at email ikke allerede eksisterer
+  const password = req.body.password;
+  const zipCode = req.body.zipCode;
+  const streetName = req.body.streetName;
 
-  const sqlquery = ("UPDATE user SET firstName = " + firstName + ", lastName = " + lastName + ", phoneNumber = " + phoneNumber + ", email = " + email + ", password = " + password + ", zipCode = " + zipCode + ", streetName = " + streetName);
+  const sqlquery =
+    "UPDATE user SET firstName = " +
+    firstName +
+    ", lastName = " +
+    lastName +
+    ", phoneNumber = " +
+    phoneNumber +
+    ", email = " +
+    email +
+    ", password = " +
+    password +
+    ", zipCode = " +
+    zipCode +
+    ", streetName = " +
+    streetName;
 
   await sendQuery(server.pool, sqlquery);
 
@@ -50,10 +80,10 @@ router.post('/updateUserSettings', async (req, res) => {
 });
 
 //verifisere email
-router.get('/returnEmail', async (req, res) =>{
-  const email = req.body.state.email;
-  
-  const sqlquery = ("SELECT * FROM user WHERE email = " + email);
+router.get("/returnEmail", async (req, res) => {
+  const email = req.body.email;
+
+  const sqlquery = "SELECT * FROM user WHERE email = " + email;
 
   const emailResult = await sendQuery(server.pool, sqlquery);
 
@@ -61,25 +91,25 @@ router.get('/returnEmail', async (req, res) =>{
 });
 
 //slette bruker fra systemet
-router.post('/delete', async (req, res) => {
-  const userID = req.body.state.userID;
+router.post("/delete", async (req, res) => {
+  const userID = req.body.userID;
   const sqlquery = "DELETE FROM user WHERE userID = " + userID;
 
   await sendQuery(server.pool, sqlquery);
 
-  res.send("User deleted where userID = " + userID)
+  res.send("User deleted where userID = " + userID);
 });
 
 //bruker-login
 //returnerer en string etter å sammenligne passord-input. Stringen er enten tom, eller == "ok"
-//inneholder også userID som kan lagres i state slik at andre funksjoner for å benytte databsen kan tas i bruk
-router.get('/login', async (req, res) => {
-  const email = req.body.state.email;
-  const password = req.body.state.password;
-  
+//inneholder også userID som kan lagres i slik at andre funksjoner for å benytte databsen kan tas i bruk
+router.get("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
   var returnString = "";
 
-  const sqlquery = ("SELECT password, userID FROM user WHERE email = " + email)
+  const sqlquery = "SELECT password, userID FROM user WHERE email = " + email;
 
   const loginResult = await sendQuery(server.pool, sqlquery);
 
@@ -89,6 +119,5 @@ router.get('/login', async (req, res) => {
 
   res.send(returnString);
 });
-
 
 module.exports = router;

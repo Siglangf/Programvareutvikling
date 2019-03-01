@@ -35,7 +35,7 @@ class AuctionBuilder extends Component {
   //creates a new auction object
   createAuction = auction => {
     const auc = auction;
-    this.setState({ auctions: this.state.auctions.concat(auc) });
+    this.setState({ auctions: this.state.auctions.concat(auc), isOpen: false });
 
     Axios.post("/api/products/newProduct", {
       productID: auc.productID,
