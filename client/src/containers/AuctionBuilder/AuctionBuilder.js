@@ -76,6 +76,7 @@ class AuctionBuilder extends Component {
     if (this.state.isOpen) {
       modal = <AuctionModal submit={this.createAuction} />;
     }
+    
     return (
       <div className="auctionBoxes">
         <h1>Auksjoner</h1>
