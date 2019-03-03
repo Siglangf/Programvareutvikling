@@ -15,7 +15,6 @@ class RegisterUser extends Component {
     repeatedPassword: "",
     zipCode: "",
     streetName: "",
-    validState: false,
     registeredUser: false,
   };
 
@@ -88,7 +87,7 @@ class RegisterUser extends Component {
         zipCode: this.state.zipCode,
         streetName: this.state.streetName
       })
-      .then(function(response) {
+      .then(response => {
         console.log(response);
         this.setState({
           firstName: "",
@@ -100,20 +99,20 @@ class RegisterUser extends Component {
           zipCode: "",
           streetName: "",
           validState: false,
-          /*registeredUser: true,*/
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-       /* this.setState({registeredUser: false});*/
+          registeredUser: true,
       });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({registeredUser: false});
+      }) 
   };
 
   render() {
     
-    /*if (this.state.registeredUser){
+    if (this.state.registeredUser){
       return <Redirect push to="/" />;
-    }*/
+    }
 
     return (
       <div className="registerUser">
