@@ -10,12 +10,15 @@ class AuctionBuilder extends Component {
   state = {
     auctions: [],
     isOpen: false,
-    searchField: '',
+    searchField: "",
+    fetchedData: false
   };
 
   componentDidMount = () => {
     this.callBackendAPI()
-      .then(res => this.setState({ auctions: res }))
+      .then(res => {
+        this.setState({ auctions: res, fetchedData: true });
+      })
       .catch(err => console.log(err));
   };
 
@@ -28,22 +31,30 @@ class AuctionBuilder extends Component {
     }
     return body;
   };
-
-  handleAuctionBid = (productID) => {
-    const updatedAuctions = this.state.auctions.map((auction) => {
-      if (auction.productID === productID && auction.endDate > new Date().getTime() && auction.formBid > auction.highestBid) {
-        return Object.assign({}, auction, {
-          highestBid: auction.formBid
-        });
-      }
-      else {
+  //make new bid
+  handleAuctionBid = (productID, formBid) => {
+    this.setState({ fetchedData: false });
+    const updatedAuctions = this.state.auctions.map(async auction => {
+      if (
+        auction.productID === productID &&
+        auction.endDate > new Date().getTime() &&
+        formBid > auction.highestBid
+      ) {
+        await axios
+          .put("/api/products/newBid", {
+            productID: auction.productID,
+            highestBid: formBid
+          })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+      } else {
         return auction;
       }
     });
     this.setState({
       auctions: updatedAuctions
     });
-  }
+  };
 
   //handle click on auction-button
   handleCreateAuctionClick = auction => {
@@ -51,81 +62,98 @@ class AuctionBuilder extends Component {
   };
 
   //handles changes in auction bid
-  handleSearchChange = (e) => {
-    this.setState({searchField: e.target.value});
-  }
+  handleSearchChange = e => {
+    this.setState({ searchField: e.target.value });
+  };
 
   //creates a new auction object
   createAuction = auction => {
     const auc = auction;
     this.setState({ auctions: this.state.auctions.concat(auc), isOpen: false });
-    axios.post("/api/products/newProduct", {
-    productID: auc.productID,
-    title: auc.title,
-    description: auc.desc,
-    image: auc.image,
-    startingBid: auc.bid,
-    sellerID: auc.sellerID,
-    endDate: auc.endDate,
-    })
+    axios
+      .post("/api/products/newProduct", {
+        productID: auc.productID,
+        title: auc.title,
+        description: auc.desc,
+        image: auc.image,
+        startingBid: auc.bid,
+        sellerID: auc.sellerID,
+        endDate: auc.endDate
+      })
       .then(function(response) {
         console.log(response);
       })
       .catch(function(error) {
         console.log(error);
       });
-  }
+  };
 
   fetchAuctions = () => {
+    this.callBackendAPI()
+      .then(res => this.setState({ auctions: res, fetchedData: true }))
+      .catch(err => console.log(err));
     let searchedAuctions = [];
-    for (let i=0; i <this.state.auctions.length; i++){
-      if (this.state.auctions[i].title.toLowerCase().indexOf(this.state.searchField.toLowerCase()) !== -1 || this.state.searchField === ''){
-        searchedAuctions.push(this.state.auctions[i]);
+    if (this.state.fetchedData) {
+      for (let i = 0; i < this.state.auctions.length; i++) {
+        if (
+          this.state.auctions[i].title
+            .toLowerCase()
+            .indexOf(this.state.searchField.toLowerCase()) !== -1 ||
+          (this.state.searchField === "" && this.auctions[i].done)
+        ) {
+          searchedAuctions.push(this.state.auctions[i]);
+        }
       }
     }
     return searchedAuctions;
-  }
+  };
 
   render() {
     //makes adjacent Auction-objects from state
-    const searchedAuctions = this.fetchAuctions();
-    
-    const auctions =  searchedAuctions.map( (auc, i)=> (
-      <Auction
-      title={auc.title}
-      productID={auc.productID}
-      key={i}
-      description={auc.description}
-      image={auc.image}          
-      startingBid={auc.startingBid}
-      highestBid={auc.highestBid}
-      highestBidder={auc.highestBidder}
-      sellerID={auc.sellerID}
-      endDate={auc.endDate}
-      onBid={this.handleAuctionBid}
-      />
-    ));
 
-    let modal = null;
-    //if the button is clicked, show the form
-    if (this.state.isOpen) {
-      modal = <AuctionModal submit={this.createAuction} />;
-    }
-    
-    return (
-      <div className="auctionBoxes">
-        <h1>Auksjoner</h1>
-        <div>
-          <SearchBar 
-            changed={this.handleSearchChange}
-          />
-        {localStorage.getItem("token") === null ? null : <React.Fragment><Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
-        {modal}</React.Fragment>}
+    if (this.state.fetchedData) {
+      const searchedAuctions = this.fetchAuctions();
+      const auctions = searchedAuctions.map((auc, i) => (
+        <Auction
+          title={auc.title}
+          productID={auc.productID}
+          key={i}
+          description={auc.description}
+          image={auc.image}
+          startingBid={auc.startingBid}
+          highestBid={auc.highestBid}
+          highestBidder={auc.highestBidder}
+          sellerID={auc.sellerID}
+          endDate={auc.endDate}
+          onBid={this.handleAuctionBid}
+        />
+      ));
+
+      let modal = null;
+      //if the button is clicked, show the form
+      if (this.state.isOpen) {
+        modal = <AuctionModal submit={this.createAuction} />;
+      }
+      return (
+        <div className="auctionBoxes">
+          <h1>Auksjoner</h1>
+          <div>
+            <SearchBar changed={this.handleSearchChange} />
+            {localStorage.getItem("token") === null ? null : (
+              <React.Fragment>
+                <Button clicked={this.handleCreateAuctionClick}>
+                  Ny annonse
+                </Button>
+                {modal}
+              </React.Fragment>
+            )}
+          </div>
+          <br />
+          {auctions}
         </div>
-        <br />
-        {auctions}
-      </div>
-    );
+      );
+    }
+    return <p>Loading</p>;
   }
 }
 

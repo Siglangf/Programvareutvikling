@@ -19,7 +19,7 @@ router.post("/newProduct", async (req, res) => {
   const highestBid = parseInt(startingBid);
   const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
   const sellerID = 1; //req.body.userID;
-  const endDate =  req.body.endDate; //forsiktig med datatype
+  const endDate = req.body.endDate; //forsiktig med datatype
 
   const userValueArray = [
     title,
@@ -40,8 +40,8 @@ router.post("/newProduct", async (req, res) => {
 });
 
 //oppdatere highestBidder
-router.post("/newBid", async (req, res) => {
-  const userID = req.body.userID;
+router.put("/newBid", async (req, res) => {
+  const userID = 1; //req.body.userID;
   const productID = req.body.productID;
   const highestBid = req.body.highestBid;
 
@@ -51,14 +51,16 @@ router.post("/newBid", async (req, res) => {
     ", highestBidder = " +
     userID +
     " WHERE productID = " +
-    productID;
+    productID +
+    ";";
+  console.log(sqlquery);
 
   await sendQuery(server.pool, sqlquery);
 
   res.send("Updated highestBidder where productID = " + productID);
 });
 
-//henter auskjoner
+//henter auksjoner
 router.get("/all", async (req, res) => {
   const sqlquery = "SELECT * FROM products ORDER BY endDate ASC";
   const auctions = await sendQuery(server.pool, sqlquery);
