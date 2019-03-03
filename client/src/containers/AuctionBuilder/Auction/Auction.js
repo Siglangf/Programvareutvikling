@@ -14,12 +14,21 @@ class Auction extends Component {
     startingBid: this.props.startingBid,
     sellerID: this.props.sellerID,
     endDate: this.props.endDate,
-    key: this.props.key
+    key: this.props.key,
+    formBid: 0,
   };
+
+  handleBidChange = (e) => {
+    this.setState( {formBid: e.target.event} );
+  }
+
+
+  handleBidClick = () => {
+      this.props.onBid(this.productID);
+  }
 
   render() {
     return (
-      <React.Fragment>
       <div className="auction">
         <p className="auctionImage">Bilde: {this.props.image}</p>
         <h4>Tittel: {this.props.title}</h4>
@@ -31,11 +40,10 @@ class Auction extends Component {
             type="number"
             title="bud"
             placeholder="Legg inn bud her"
-            onChange={this.handleNameChange}
+            onChange={this.handleBidChange}
           />
-        <Button className="auctionButton">Legg inn bud</Button>
+        <Button className="auctionButton" clicked={this.handleBidClick}>Legg inn bud</Button>
       </div>
-      </React.Fragment>
     );
   }
 }
