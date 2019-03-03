@@ -1,44 +1,74 @@
-import React, { Component } from 'react';
-import './LoginPage.css';
-import RegisterUser from '../RegisterUser/RegisterUser';
-import { Redirect } from 'react-router-dom';
-import Button from '../UI/Button/Button';
+import React, { Component } from "react";
+import "./LoginPage.css";
+import RegisterUser from "../RegisterUser/RegisterUser";
+import { Redirect } from "react-router-dom";
+import Button from "../UI/Button/Button";
+import axios from "axios";
 
 class loginpage extends Component {
-    
-    state = {
-        registerClicked: false,
+  state = {
+    registerClicked: false,
+    username: "",
+    password: ""
+  };
+
+  handleClick = () => {
+    this.setState({ registerClicked: true });
+  };
+  handleLogin = async e => {
+    e.preventDefault();
+    await axios
+      .post("/api/auth", {
+        email: this.state.username,
+        password: this.state.password
+      })
+      .then(res => localStorage.setItem("token", res.data))
+      .catch(err => console.log(err));
+  };
+
+  handleUsernameChange = e => {
+    this.setState({ username: e.target.value });
+  };
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
+  };
+
+  render() {
+    if (this.state.registerClicked) {
+      return <Redirect push to="/register" />;
     }
 
-    handleClick = () => {
-        this.setState( {registerClicked: true} );
-    }
-
-    render(){
-        if (this.state.registerClicked){
-            return <Redirect push to="/register" />
-        }
-
-        return(
-        <div className="loginpage">
+    return (
+      <div className="loginpage">
         <h1>Logg inn</h1>
         <form>
-        <label class="loginlabel">Brukernavn:</label>
-        <br/> 
-        <input class="logininput" type="text" name="username" />
-        <br/>
-        <label class="loginlabel">Passord:</label>
-        <br/>
-        <input class="logininput" type="text" name="password" />
-        <br/>
-        <Button>Logg inn</Button>
-        <br></br>
-        <Button clicked={this.handleClick}l>Ny bruker</Button>
+          <label className="loginlabel">Brukernavn:</label>
+          <br />
+          <input
+            className="logininput"
+            type="text"
+            name="username"
+            onChange={this.handleUsernameChange}
+          />
+          <br />
+          <label className="loginlabel">Passord:</label>
+          <br />
+          <input
+            className="logininput"
+            type="text"
+            name="password"
+            onChange={this.handlePasswordChange}
+          />
+          <br />
+          <Button clicked={this.handleLogin}>Logg inn</Button>
+          <br />
+          <Button clicked={this.handleClick} l>
+            Ny bruker
+          </Button>
         </form>
-    </div>
-
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default loginpage;
