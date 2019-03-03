@@ -25,7 +25,7 @@ class Auction extends Component {
         <h4>Tittel: {this.props.title}</h4>
         <p>Beskrivelse: {this.props.description}</p>
         <p>Nåværende bud: {this.props.highestBid},- kr</p>
-        <CountdownTimer auctionTime={this.props.endDate - new Date().getTime}/>
+        {this.props.endDate > new Date().getTime() ? <CountdownTimer auctionTime={this.props.endDate - new Date().getTime()}/> : <div><span style={{color: 'red'}}>Auksjonen er avsluttet!</span></div>}
         <input
             className="bidInputField"
             type="number"
