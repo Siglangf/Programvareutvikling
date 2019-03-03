@@ -29,6 +29,22 @@ class AuctionBuilder extends Component {
     return body;
   };
 
+  handleAuctionBid = (productID) => {
+    const updatedAuctions = this.state.auctions.map((auction) => {
+      if (auction.productID === productID && auction.endDate > new Date().getTime() && auction.formBid > auction.highestBid) {
+        return Object.assign({}, auction, {
+          highestBid: auction.formBid
+        });
+      }
+      else {
+        return auction;
+      }
+    });
+    this.setState({
+      auctions: updatedAuctions
+    });
+  }
+
   //handle click on auction-button
   handleCreateAuctionClick = auction => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -50,7 +66,7 @@ class AuctionBuilder extends Component {
     image: auc.image,
     startingBid: auc.bid,
     sellerID: auc.sellerID,
-    endDate: auc.endDate
+    endDate: auc.endDate,
     })
       .then(function(response) {
         console.log(response);
@@ -86,6 +102,7 @@ class AuctionBuilder extends Component {
       highestBidder={auc.highestBidder}
       sellerID={auc.sellerID}
       endDate={auc.endDate}
+      onBid={this.handleAuctionBid}
       />
     ));
 
