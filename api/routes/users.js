@@ -1,5 +1,6 @@
 //Here we add all the functions for usershandling
-
+const config = require("config");
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const sendQuery = require("../database");
@@ -18,7 +19,6 @@ router.get("/all", async (req, res) => {
 
 //register new user, use endpoint /api/users/register
 router.post("/register", async (req, res) => {
-  console.log("hei");
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const phoneNumber = parseInt(req.body.phoneNumber);
@@ -41,12 +41,22 @@ router.post("/register", async (req, res) => {
     password
   ];
 
-  let sqlquery =
+  let sqlquery = 'SELECT email FROM users WHERE email="' + email + '";';
+  let response = await sendQuery(server.pool, sqlquery);
+  console.log(response);
+  if (response.length != 0) {
+    return res.status(400).send("User already exist");
+  }
+
+  sqlquery =
     "INSERT INTO users (firstName, lastName, phonenumber, email, zipCode, streetName, isAdmin, rating, password) VALUES ";
   sqlquery = sqlquery + generateValuelist(userValueArray);
   await sendQuery(server.pool, sqlquery);
-
-  res.send("User inserted into table with unique email: " + email);
+  sqlquery = 'SELECT * FROM users WHERE email="' + email + '";';
+  let user = await sendQuery(server.pool, sqlquery);
+  user = JSON.parse(JSON.stringify(user[0]));
+  const token = jwt.sign(user, config.get("jwtPrivateKey"));
+  res.header("x-auth-token", token).send(user);
 });
 
 //oppdatere brukerinnstillinger
@@ -85,7 +95,7 @@ router.post("/updateUserSettings", async (req, res) => {
 router.get("/returnEmail", async (req, res) => {
   const email = req.body.email;
 
-  const sqlquery = "SELECT * FROM user WHERE email = " + email;
+  const sqlquery = "SELECT * FROM users WHERE email = " + email;
 
   const emailResult = await sendQuery(server.pool, sqlquery);
 
@@ -100,26 +110,6 @@ router.post("/delete", async (req, res) => {
   await sendQuery(server.pool, sqlquery);
 
   res.send("User deleted where userID = " + userID);
-});
-
-//bruker-login
-//returnerer en string etter å sammenligne passord-input. Stringen er enten tom, eller == "ok"
-//inneholder også userID som kan lagres i slik at andre funksjoner for å benytte databsen kan tas i bruk
-router.get("/login", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  var returnString = "";
-
-  const sqlquery = "SELECT password, userID FROM user WHERE email = " + email;
-
-  const loginResult = await sendQuery(server.pool, sqlquery);
-
-  if (password === loginResult[0]) {
-    returnString = "ok";
-  }
-
-  res.send(returnString);
 });
 
 module.exports = router;
