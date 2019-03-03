@@ -12,20 +12,30 @@ class AuctionModal extends Component {
     startingBid: "",
     highestBid: "",
     sellerID: "",
-    endDate: ""
+    endDate: 0,
   };
+
   handleNameChange = e => {
     this.setState({ title: e.target.value });
   };
+
   handleDescChange = e => {
     this.setState({ desc: e.target.value });
   };
+
   handlePictureChange = e => {
     this.setState({ image: e.target.value });
   };
+
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
   };
+
+  handleEndDateChange = e => {
+    let timeInMilli = new Date().getTime();
+    this.setState({endDate: timeInMilli + (1000* 3600 * e.target.value)});
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     const productID = this.state.productID;
@@ -80,6 +90,13 @@ class AuctionModal extends Component {
             placeholder="Startbud"
             min="1"
             onChange={this.handleBidChange}
+          />
+           <input
+            className="inputElementDesc"
+            type="number"
+            title="tid"
+            placeholder="Hvor mange timer skal auksjonen foregå?"
+            onChange={this.handleEndDateChange}
           />
           <Button clicked={this.handleSubmit}>Submit</Button>
         </form>
