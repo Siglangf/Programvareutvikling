@@ -9,6 +9,7 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import Footer from "./components/UI/Footer/Footer";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Register from "./components/RegisterUser/RegisterUser";
+import LogOut from './components/LogOut/LogOut';
 
 //Main site of the application, this is where we import other components
 
@@ -34,6 +35,7 @@ class App extends Component {
         <Switch>
           <Route path="/auctions" component={AuctionBuilder} />
           <Route path="/login" exact component={LoginPage} />
+          <Route path="/logout" exact component={LogOut} />
           <Route path="/contact" exact component={ContactUs} />
           <Route path="/register" component={Register} />
           <Route path="/" component={AboutUs} />

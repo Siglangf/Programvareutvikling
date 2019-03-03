@@ -35,14 +35,14 @@ class Auction extends Component {
         <p>Beskrivelse: {this.props.description}</p>
         <p>Nåværende bud: {this.props.highestBid},- kr</p>
         {this.props.endDate > new Date().getTime() ? <CountdownTimer auctionTime={this.props.endDate - new Date().getTime()}/> : <div><span style={{color: 'red'}}>Auksjonen er avsluttet!</span></div>}
-        <input
+        {localStorage.getItem("token") === null ? null : <React.Fragment><input
             className="bidInputField"
             type="number"
             title="bud"
             placeholder="Legg inn bud her"
             onChange={this.handleBidChange}
           />
-        <Button className="auctionButton" clicked={this.handleBidClick}>Legg inn bud</Button>
+        <Button className="auctionButton" clicked={this.handleBidClick}>Legg inn bud</Button></React.Fragment>}
       </div>
     );
   }

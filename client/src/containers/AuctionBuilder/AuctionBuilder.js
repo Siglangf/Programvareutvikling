@@ -119,9 +119,9 @@ class AuctionBuilder extends Component {
           <SearchBar 
             changed={this.handleSearchChange}
           />
-          <Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
+        {localStorage.getItem("token") === null ? null : <React.Fragment><Button clicked={this.handleCreateAuctionClick}>Ny annonse</Button>
+        {modal}</React.Fragment>}
         </div>
-        {modal}
         <br />
         {auctions}
       </div>
