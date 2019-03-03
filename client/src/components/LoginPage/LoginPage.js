@@ -9,12 +9,14 @@ class loginpage extends Component {
   state = {
     registerClicked: false,
     username: "",
-    password: ""
+    password: "",
+    loggedIn: false,
   };
 
   handleClick = () => {
     this.setState({ registerClicked: true });
   };
+
   handleLogin = async e => {
     e.preventDefault();
     await axios
@@ -22,8 +24,14 @@ class loginpage extends Component {
         email: this.state.username,
         password: this.state.password
       })
-      .then(res => localStorage.setItem("token", res.data))
-      .catch(err => console.log(err));
+      .then(res =>  {
+        localStorage.setItem("token", res.data);
+        this.setState({loggedIn: true})
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({loggedIn: false});
+      });
   };
 
   handleUsernameChange = e => {
@@ -38,14 +46,20 @@ class loginpage extends Component {
       return <Redirect push to="/register" />;
     }
 
+    if (this.state.loggedIn){
+      return <Redirect push to="/" />;
+    }
+
     return (
-      <div className="loginpage">
-        <h1>Logg inn</h1>
-        <form>
-          <label className="loginlabel">Brukernavn:</label>
+      <div className="loginUser">
+        <form className="loginForm">
+        <h1 className="loginTitle">
+        Logg inn
+        </h1>
+        <label className="loginlabel">Brukernavn:</label>
           <br />
           <input
-            className="logininput"
+            className="loginInput"
             type="text"
             name="username"
             onChange={this.handleUsernameChange}
@@ -54,19 +68,18 @@ class loginpage extends Component {
           <label className="loginlabel">Passord:</label>
           <br />
           <input
-            className="logininput"
-            type="text"
+            className="loginInput"
+            type="password"
             name="password"
             onChange={this.handlePasswordChange}
           />
+        </form>
           <br />
-          <Button clicked={this.handleLogin}>Logg inn</Button>
-          <br />
-          <Button clicked={this.handleClick} l>
+          <Button clicked={this.handleLogin} className="loginButton">Logg inn</Button>
+          <Button clicked={this.handleClick} className="loginButton"l>
             Ny bruker
           </Button>
-        </form>
-      </div>
+          </div>
     );
   }
 }

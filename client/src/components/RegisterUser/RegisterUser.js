@@ -3,7 +3,7 @@ import Button from "../../components/UI/Button/Button";
 import "./RegisterUser.css";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { runInThisContext } from "vm";
+import { Redirect } from 'react-router-dom';
 
 class RegisterUser extends Component {
   state = {
@@ -15,7 +15,7 @@ class RegisterUser extends Component {
     repeatedPassword: "",
     zipCode: "",
     streetName: "",
-    validState: false
+    registeredUser: false,
   };
 
   validateName = (firstname, lastname) => {
@@ -87,7 +87,7 @@ class RegisterUser extends Component {
         zipCode: this.state.zipCode,
         streetName: this.state.streetName
       })
-      .then(function(response) {
+      .then(response => {
         console.log(response);
         this.setState({
           firstName: "",
@@ -98,15 +98,22 @@ class RegisterUser extends Component {
           repeatedPassword: "",
           zipCode: "",
           streetName: "",
-          validState: false
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
+          validState: false,
+          registeredUser: true,
       });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({registeredUser: false});
+      }) 
   };
 
   render() {
+    
+    if (this.state.registeredUser){
+      return <Redirect push to="/" />;
+    }
+
     return (
       <div className="registerUser">
         <form className="registerForm">
