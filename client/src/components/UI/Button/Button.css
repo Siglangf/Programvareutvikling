@@ -1,6 +1,5 @@
 .Button {
   background-color: transparent;
-  border: 3px solid #D85430;
   color: white;
   outline: none;
   cursor: pointer;
@@ -13,5 +12,9 @@
   width: 70x;
   height: 35px; 
   padding-bottom: 30px;
+}
+
+.Button:hover {
+  border: 3px solid #D85430;
 }
 
