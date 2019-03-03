@@ -19,7 +19,7 @@ router.post("/newProduct", async (req, res) => {
   const highestBid = parseInt(startingBid);
   const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
   const sellerID = 1; //req.body.userID;
-  const endDate = 1500; //req.body.endDate; //forsiktig med datatype
+  const endDate = req.body.endDate; //forsiktig med datatype
 
   const userValueArray = [
     title,
