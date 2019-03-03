@@ -20,9 +20,9 @@
   height: 100%;
 }
 
-/*@media (max-width: 499px) {
-  .DesktopOnly {
-      display: none;
+@media (max-width: 499px) {
+  .Toolbar {
+      /*display: none;*/
   }
-}*/
+}
 
