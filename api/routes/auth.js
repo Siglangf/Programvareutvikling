@@ -3,6 +3,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const sendQuery = require("../database");
+const bcrypt = require("bcrypt");
 const generateValuelist = require("../helpfunctions").generateValuelist;
 let server = require("../../server"); //get pool-connection from server
 const bodyparser = require("body-parser");
@@ -14,17 +15,16 @@ router.use(bodyparser.json());
 router.post("/", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email);
 
   let sqlquery =
     'SELECT email,password FROM users WHERE email="' + email + '";';
-  console.log(sqlquery);
   let response = await sendQuery(server.pool, sqlquery);
-  console.log(response);
+
   if (response.length === 0) {
     return res.status(400).send("Invalid email ");
   }
-  if (response[0].password != password) {
+  const validPassword = await bcrypt.compare(password, response[0].password);
+  if (!validPassword) {
     return res.status(400).send("Invalid passord");
   }
 
