@@ -9,7 +9,7 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import Footer from "./components/UI/Footer/Footer";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Register from "./components/RegisterUser/RegisterUser";
-import LogOut from './components/LogOut/LogOut';
+import LogOut from "./components/LogOut/LogOut";
 
 //Main site of the application, this is where we import other components
 
@@ -29,6 +29,13 @@ class App extends Component {
   render() {
     //can pass user to navbar. Then you can render conditionaly if user exist or not.
     console.log(this.state.user);
+    if (this.state.user) {
+      try {
+        jwtDecode(localStorage.getItem("token"));
+      } catch {
+        localStorage.removeItem("token");
+      }
+    }
     return (
       <main>
         <Layout />

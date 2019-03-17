@@ -1,7 +1,7 @@
 //Here we add all the functions for usershandling
-
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const sendQuery = require("../database");
 const bodyparser = require("body-parser");
 let server = require("../../server"); //get pool-connection from server
@@ -11,7 +11,7 @@ router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
 
 //sette inn auksjon
-router.post("/newProduct", async (req, res) => {
+router.post("/newProduct", auth, async (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
@@ -40,7 +40,7 @@ router.post("/newProduct", async (req, res) => {
 });
 
 //oppdatere highestBidder
-router.put("/newBid", async (req, res) => {
+router.put("/newBid", auth, async (req, res) => {
   const userID = 1; //req.body.userID;
   const productID = req.body.productID;
   const highestBid = req.body.highestBid;
