@@ -17,10 +17,10 @@ const port = process.env.PORT || 5000;
 
 let pool = mysql.createPool({
   connectionLimit: 10,
-  host: "mysql.stud.ntnu.no",
-  user: "sigursl_",
-  password: "pugruppe69",
-  database: "harkamas_pu69"
+  host: "remotemysql.com",
+  user: "fGtwb92AVU",
+  password: "KMVg0zpFr0",
+  database: "fGtwb92AVU"
 }); //Creates logginsettup for mysql_database
 
 pool.getConnection((err, connection) => {
