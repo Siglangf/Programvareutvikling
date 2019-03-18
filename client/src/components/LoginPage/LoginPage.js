@@ -10,7 +10,8 @@ class loginpage extends Component {
     registerClicked: false,
     username: "",
     password: "",
-    loggedIn: false
+    loggedIn: false,
+    wrongInputMessage: ""
   };
 
   handleClick = () => {
@@ -18,7 +19,9 @@ class loginpage extends Component {
   };
 
   handleWrongInput = () => {
-    //Legg til kode her for å feil passord håndtering
+    this.setState({
+      wrongInputMessage: "Du oppga feil brukernavn eller passord"
+    });
   };
 
   handleLogin = async e => {
@@ -29,16 +32,14 @@ class loginpage extends Component {
         password: this.state.password
       })
       .then(res => {
-        if (res.status != 200) {
-          handleWrongInput();
-        } else {
-          localStorage.setItem("token", res.data);
-          this.setState({ loggedIn: true });
-        }
+        localStorage.setItem("token", res.data);
+        this.setState({ loggedIn: true, wrongInputMessage: "" });
       })
       .catch(err => {
-        console.log(err);
-        this.setState({ loggedIn: false });
+        this.setState({
+          loggedIn: false,
+          wrongInputMessage: "Feil brukernavn eller passord"
+        });
       });
   };
 
@@ -80,7 +81,9 @@ class loginpage extends Component {
             onChange={this.handlePasswordChange}
           />
         </form>
+        <p className="wrongInput">{this.state.wrongInputMessage}</p>
         <br />
+
         <Button clicked={this.handleLogin} className="loginButton">
           Logg inn
         </Button>
