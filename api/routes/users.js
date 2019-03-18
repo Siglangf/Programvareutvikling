@@ -2,6 +2,7 @@
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const express = require("express");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 const sendQuery = require("../database");
 const generateValuelist = require("../helpfunctions").generateValuelist;
@@ -23,11 +24,14 @@ router.post("/register", async (req, res) => {
   const lastName = req.body.lastName;
   const phoneNumber = parseInt(req.body.phoneNumber);
   const email = req.body.email;
-  const password = req.body.password;
+  let password = req.body.password;
   const rating = 0;
   const zipCode = parseInt(req.body.zipCode);
   const streetName = req.body.streetName;
   const isAdmin = 0;
+
+  const salt = await bcrypt.genSalt(10);
+  password = await bcrypt.hash(password, salt);
 
   const userValueArray = [
     firstName,
@@ -43,11 +47,9 @@ router.post("/register", async (req, res) => {
 
   let sqlquery = 'SELECT email FROM users WHERE email="' + email + '";';
   let response = await sendQuery(server.pool, sqlquery);
-  console.log(response);
   if (response.length != 0) {
     return res.status(400).send("User already exist");
   }
-
   sqlquery =
     "INSERT INTO users (firstName, lastName, phonenumber, email, zipCode, streetName, isAdmin, rating, password) VALUES ";
   sqlquery = sqlquery + generateValuelist(userValueArray);
