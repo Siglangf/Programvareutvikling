@@ -34,6 +34,10 @@ class AuctionBuilder extends Component {
   //make new bid
   handleAuctionBid = (productID, formBid) => {
     this.setState({ fetchedData: false });
+    //Make header for HTTP-req with token
+    let config = {
+      headers: { "x-auth-token": localStorage.getItem("token") }
+    };
     const updatedAuctions = this.state.auctions.map(async auction => {
       if (
         auction.productID === productID &&
@@ -41,10 +45,14 @@ class AuctionBuilder extends Component {
         formBid > auction.highestBid
       ) {
         await axios
-          .put("/api/products/newBid", {
-            productID: auction.productID,
-            highestBid: formBid
-          })
+          .put(
+            "/api/products/newBid",
+            {
+              productID: auction.productID,
+              highestBid: formBid
+            },
+            config
+          ) //Makes HTTP-request and include header in request
           .then(res => console.log(res))
           .catch(err => console.error(err));
       } else {
@@ -69,17 +77,24 @@ class AuctionBuilder extends Component {
   //creates a new auction object
   createAuction = auction => {
     const auc = auction;
+    let config = {
+      headers: { "x-auth-token": localStorage.getItem("token") }
+    };
     this.setState({ auctions: this.state.auctions.concat(auc), isOpen: false });
     axios
-      .post("/api/products/newProduct", {
-        productID: auc.productID,
-        title: auc.title,
-        description: auc.desc,
-        image: auc.image,
-        startingBid: auc.bid,
-        sellerID: auc.sellerID,
-        endDate: auc.endDate
-      })
+      .post(
+        "/api/products/newProduct",
+        {
+          productID: auc.productID,
+          title: auc.title,
+          description: auc.desc,
+          image: auc.image,
+          startingBid: auc.bid,
+          sellerID: auc.sellerID,
+          endDate: auc.endDate
+        },
+        config
+      )
       .then(function(response) {
         console.log(response);
       })
