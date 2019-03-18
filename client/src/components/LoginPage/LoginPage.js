@@ -10,11 +10,15 @@ class loginpage extends Component {
     registerClicked: false,
     username: "",
     password: "",
-    loggedIn: false,
+    loggedIn: false
   };
 
   handleClick = () => {
     this.setState({ registerClicked: true });
+  };
+
+  handleWrongInput = () => {
+    //Legg til kode her for å feil passord håndtering
   };
 
   handleLogin = async e => {
@@ -24,13 +28,17 @@ class loginpage extends Component {
         email: this.state.username,
         password: this.state.password
       })
-      .then(res =>  {
-        localStorage.setItem("token", res.data);
-        this.setState({loggedIn: true})
+      .then(res => {
+        if (res.status != 200) {
+          handleWrongInput();
+        } else {
+          localStorage.setItem("token", res.data);
+          this.setState({ loggedIn: true });
+        }
       })
       .catch(err => {
         console.log(err);
-        this.setState({loggedIn: false});
+        this.setState({ loggedIn: false });
       });
   };
 
@@ -46,17 +54,15 @@ class loginpage extends Component {
       return <Redirect push to="/register" />;
     }
 
-    if (this.state.loggedIn){
+    if (this.state.loggedIn) {
       return <Redirect push to="/" />;
     }
 
     return (
       <div className="loginUser">
         <form className="loginForm">
-        <h1 className="loginTitle">
-        Logg inn
-        </h1>
-        <label className="loginlabel">Brukernavn:</label>
+          <h1 className="loginTitle">Logg inn</h1>
+          <label className="loginlabel">Brukernavn:</label>
           <br />
           <input
             className="loginInput"
@@ -74,12 +80,14 @@ class loginpage extends Component {
             onChange={this.handlePasswordChange}
           />
         </form>
-          <br />
-          <Button clicked={this.handleLogin} className="loginButton">Logg inn</Button>
-          <Button clicked={this.handleClick} className="loginButton"l>
-            Ny bruker
-          </Button>
-          </div>
+        <br />
+        <Button clicked={this.handleLogin} className="loginButton">
+          Logg inn
+        </Button>
+        <Button clicked={this.handleClick} className="loginButton" l>
+          Ny bruker
+        </Button>
+      </div>
     );
   }
 }
