@@ -21,3 +21,6 @@
   text-align: center;
   background: #35424a;
 }
+.wrongInput {
+  color: red;
+}
