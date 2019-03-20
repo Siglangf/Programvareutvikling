@@ -5,6 +5,7 @@ import AuctionModal from "../../components/UI/AuctionModal/AuctionModal";
 import axios from "axios";
 import Button from "../../components/UI/Button/Button";
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
+import jwtDecode from "jwt-decode";
 
 class AuctionBuilder extends Component {
   state = {
@@ -49,7 +50,8 @@ class AuctionBuilder extends Component {
             "/api/products/newBid",
             {
               productID: auction.productID,
-              highestBid: formBid
+              highestBid: formBid,
+              userID: jwtDecode(localStorage.getItem("token")).userID
             },
             config
           ) //Makes HTTP-request and include header in request

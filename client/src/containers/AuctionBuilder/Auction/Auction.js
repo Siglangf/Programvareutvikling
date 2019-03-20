@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Auction.css";
 import Button from "../../../components/UI/Button/Button";
 import CountdownTimer from "../../../components/UI/CountdownTimer/CountdownTimer";
+import axios from "axios";
 
 class Auction extends Component {
   state = {
@@ -25,8 +26,25 @@ class Auction extends Component {
   handleBidClick = () => {
     this.props.onBid(this.state.productID, this.state.formBid);
   };
+  handleEndedAuction = () => {
+    axios
+      .post("/api/orders/insertOrder", {
+        productID: this.state.productID,
+        sellerID: this.state.sellerID,
+        highestBidderID: this.state.highestBidder
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
 
   render() {
+    if (this.props.endDate > new Date().getTime()) {
+      //this.handleEndedAuction();
+    }
     return (
       <div className="auction">
         <p className="auctionImage">Bilde: {this.props.image}</p>

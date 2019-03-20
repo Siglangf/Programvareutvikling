@@ -18,7 +18,7 @@ router.post("/newProduct", auth, async (req, res) => {
   const startingBid = parseInt(req.body.startingBid);
   const highestBid = parseInt(startingBid);
   const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
-  const sellerID = 1; //req.body.userID;
+  const sellerID = req.body.sellerID;
   const endDate = req.body.endDate; //forsiktig med datatype
 
   const userValueArray = [
@@ -41,7 +41,7 @@ router.post("/newProduct", auth, async (req, res) => {
 
 //oppdatere highestBidder
 router.put("/newBid", auth, async (req, res) => {
-  const userID = 1; //req.body.userID;
+  const userID = req.body.userID;
   const productID = req.body.productID;
   const highestBid = req.body.highestBid;
 
