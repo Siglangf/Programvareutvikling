@@ -58,23 +58,24 @@ class Auction extends Component {
         )}
         <p className="auctionImage">Bilde: {this.props.image}</p>
         <h3>{this.props.title}</h3>
-        <p>Beskrivelse: {this.props.description}</p>
+        <p>{this.props.description}</p>
         <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
-        
-        {localStorage.getItem("token") === null ? null : (
-          <React.Fragment>
-            <input
-              className="bidInputField"
-              type="number"
-              title="bud"
-              placeholder="Legg inn bud her"
-              onChange={this.handleBidChange}
-            />
-            <Button className="auctionButton" clicked={this.handleBidClick}>
-              Legg inn bud
-            </Button>
-          </React.Fragment>
+        <div className="footer">
+          {localStorage.getItem("token") === null ? null : (
+            <React.Fragment>
+              <input
+                className="bidInputField"
+                type="number"
+                title="bud"
+                placeholder="Legg inn bud her"
+                onChange={this.handleBidChange}
+              />
+              <Button className="auctionButton" clicked={this.handleBidClick}>
+                Legg inn bud
+              </Button>
+            </React.Fragment>
         )}
+        </div>
       </div>
     );
   }
