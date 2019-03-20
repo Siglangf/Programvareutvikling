@@ -8,7 +8,7 @@ class AuctionModal extends Component {
     productID: "",
     title: "",
     desc: "",
-    image: "",
+    image: null,
     startingBid: "",
     highestBid: "",
     sellerID: "",
@@ -24,7 +24,8 @@ class AuctionModal extends Component {
   };
 
   handlePictureChange = e => {
-    this.setState({ image: e.target.value });
+    //implementer validering av filtype ved å se på endelsen av filnavn(.png, .jpeg osv)
+    this.setState({ image: e.target.files[0] });
   };
 
   handleBidChange = e => {
@@ -61,7 +62,7 @@ class AuctionModal extends Component {
     return (
         <div className="AuctionContainer">
         <h4>Skriv inn info om produktet</h4>
-        <form className="inputFields">
+        <form className="inputFields" enctype="multipart/form-data">
           <input
             className="inputElementName"
             type="text"
@@ -78,7 +79,7 @@ class AuctionModal extends Component {
           />
           <input
             className="inputElementImage"
-            type="text"
+            type="file"
             title="bilde"
             placeholder="Bilde her..."
             onChange={this.handlePictureChange}

@@ -29,7 +29,8 @@ class Auction extends Component {
   render() {
     return (
       <div className="auction">
-        <p className="auctionImage">Bilde: {this.props.image}</p>
+        <p className="auctionImage">Bilde: </p>
+        <img src={require('../../../assets/productImages/stol.jpg')} alt="Auksjonsbilde" className="aucImg"/>
         <h4>Tittel: {this.props.title}</h4>
         <p>Beskrivelse: {this.props.description}</p>
         <p>Nåværende bud: {this.props.highestBid},- kr</p>
