@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { runInThisContext } from "vm";
 import "./AuctionModal.css";
 import Button from "../Button/Button";
 import jwtDecode from "jwt-decode";
+import FileBase64 from 'react-file-base64';
 class AuctionModal extends Component {
   //does not need any info
   state = {
     productID: "",
     title: "",
     desc: "",
-    image: "",
+    image: null,
     startingBid: "",
     highestBid: "",
     endDate: 0
@@ -23,9 +23,10 @@ class AuctionModal extends Component {
     this.setState({ desc: e.target.value });
   };
 
-  handlePictureChange = e => {
-    this.setState({ image: e.target.value });
-  };
+  getFiles(files){
+   const base64img = files.base64.split(',')[1];
+    this.setState({ image: base64img });
+  }
 
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
@@ -77,13 +78,12 @@ class AuctionModal extends Component {
             placeholder="Beskrivelse"
             onChange={this.handleDescChange}
           />
-          <input
-            className="inputElementImage"
-            type="text"
-            title="bilde"
-            placeholder="Bilde her..."
-            onChange={this.handlePictureChange}
+          <p>Last opp bilde her: </p>
+          <span className="inputElementImage"><FileBase64
+            multiple={ false }
+            onDone={this.getFiles.bind(this)}
           />
+          </span>
           <input
             className="inputElementBid"
             type="number"

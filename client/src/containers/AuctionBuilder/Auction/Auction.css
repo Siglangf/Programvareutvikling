@@ -64,7 +64,7 @@ body {
 }
 
 .auctionImage {
-  position: relative;
+  margin: 0 auto;
   background: #333;
   top: 0.8rem;
   left: 6.2rem;
