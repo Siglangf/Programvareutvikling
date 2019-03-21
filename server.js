@@ -1,18 +1,26 @@
+const config = require("config");
 const express = require("express");
 const mysql = require("mysql");
 const users = require("./api/routes/users");
 const products = require("./api/routes/products");
 const orders = require("./api/routes/orders");
 const reports = require("./api/routes/reports");
+const auth = require("./api/routes/auth");
 const app = express();
+
+if (!config.get("jwtPrivateKey")) {
+  console.error("FATAL ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
+
 const port = process.env.PORT || 5000;
 
 let pool = mysql.createPool({
   connectionLimit: 10,
-  host: "mysql.stud.ntnu.no",
-  user: "sigursl_",
-  password: "pugruppe69",
-  database: "harkamas_pu69"
+  host: "remotemysql.com",
+  user: "fGtwb92AVU",
+  password: "KMVg0zpFr0",
+  database: "fGtwb92AVU"
 }); //Creates logginsettup for mysql_database
 
 pool.getConnection((err, connection) => {
@@ -45,5 +53,6 @@ app.use("/api/users", users);
 app.use("/api/products", products);
 app.use("/api/orders", orders);
 app.use("/api/reports", reports);
+app.use("/api/auth", auth);
 
 exports.pool = pool; //exports the connection so it can be required in the users.js module

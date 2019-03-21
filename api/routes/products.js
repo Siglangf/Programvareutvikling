@@ -1,7 +1,7 @@
 //Here we add all the functions for usershandling
-
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const sendQuery = require("../database");
 const bodyparser = require("body-parser");
 let server = require("../../server"); //get pool-connection from server
@@ -11,15 +11,15 @@ router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
 
 //sette inn auksjon
-router.post("/newProduct", async (req, res) => {
+router.post("/newProduct", auth, async (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
   const startingBid = parseInt(req.body.startingBid);
   const highestBid = parseInt(startingBid);
   const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper
-  const sellerID = 1; //req.body.userID;
-  const endDate = "2019-03-31"; //req.body.endDate; //forsiktig med datatype
+  const sellerID = req.body.sellerID;
+  const endDate = req.body.endDate; //forsiktig med datatype
 
   const userValueArray = [
     title,
@@ -40,7 +40,7 @@ router.post("/newProduct", async (req, res) => {
 });
 
 //oppdatere highestBidder
-router.post("/newBid", async (req, res) => {
+router.put("/newBid", auth, async (req, res) => {
   const userID = req.body.userID;
   const productID = req.body.productID;
   const highestBid = req.body.highestBid;
@@ -51,18 +51,19 @@ router.post("/newBid", async (req, res) => {
     ", highestBidder = " +
     userID +
     " WHERE productID = " +
-    productID;
+    productID +
+    ";";
+  console.log(sqlquery);
 
   await sendQuery(server.pool, sqlquery);
 
   res.send("Updated highestBidder where productID = " + productID);
 });
 
-//henter auskjoner
+//henter auksjoner
 router.get("/all", async (req, res) => {
   const sqlquery = "SELECT * FROM products ORDER BY endDate ASC";
   const auctions = await sendQuery(server.pool, sqlquery);
-
   res.send(auctions);
 });
 

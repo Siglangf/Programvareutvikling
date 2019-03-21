@@ -5,6 +5,7 @@
   text-align: center;
   padding: 0 25px;
   flex-wrap: wrap;
+  flex-direction: row;  
   background-color: white;
   margin-bottom: 300px;
 }
