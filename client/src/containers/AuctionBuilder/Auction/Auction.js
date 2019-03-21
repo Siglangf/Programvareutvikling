@@ -8,7 +8,7 @@ class Auction extends Component {
     productID: this.props.productID,
     title: this.props.title,
     description: this.props.description,
-    image: this.props.image,
+    image: this.props.image, //Skal være en path til directory på server der filer lagres. Se multer storage i products.js
     highestBid: this.props.highestBid,
     highestBidder: this.props.highestBidder,
     startingBid: this.props.startingBid,
@@ -26,12 +26,13 @@ class Auction extends Component {
     this.props.onBid(this.state.productID, this.state.formBid);
   };
 
+  //Sett img src = image.  
   render() {
     return (
       <div className="auction">
         <p className="auctionImage">Bilde: </p>
         <img src={require('../../../assets/productImages/stol.jpg')} alt="Auksjonsbilde" className="aucImg"/>
-        <h4>Tittel: {this.props.title}</h4>
+        <h4>Tittel: {this.props.title}</h4> 
         <p>Beskrivelse: {this.props.description}</p>
         <p>Nåværende bud: {this.props.highestBid},- kr</p>
         {this.props.endDate > new Date().getTime() ? (

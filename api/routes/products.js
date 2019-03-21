@@ -12,7 +12,7 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "../../client/src/assets/productImages/",
   filename: function(req, file, cb) {
-    cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname)); //Unikt filnavn hver gang
   } 
 });
 const upload = multer({
@@ -27,7 +27,18 @@ router.use(bodyparser.json());
 router.post("/newProduct", upload, auth, async (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
-  const image = req.file.path; //forsiktig med filtype
+  console.log("Description: " + description);
+  if (!req.files) {
+    console.log("No file received");
+  }
+  else {
+    console.log("File received!");
+  }
+  //https://www.npmjs.com/package/multer
+  //https://medium.com/@mahesh_joshi/reactjs-nodejs-upload-image-how-to-upload-image-using-reactjs-and-nodejs-multer-918dc66d304c
+  
+  //Koden stopper her hvis ingen fil blir sendt. Ingenting lagres i databasen så test masse
+  const image = req.file.filename; //lagrer path i databasen, hente path for å vise bilder til auksjoner
   const startingBid = parseInt(req.body.startingBid);
   const highestBid = parseInt(startingBid);
   const highestBidder = 0; //dersom ingen byr på objektet kan vi sjekke om highestbidder er 0, og terminere annonsen uten en kjøper

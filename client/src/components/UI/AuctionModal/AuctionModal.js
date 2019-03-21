@@ -25,7 +25,7 @@ class AuctionModal extends Component {
 
   handlePictureChange = e => {
     //implementer validering av filtype ved å se på endelsen av filnavn(.png, .jpeg osv)
-    this.setState({ image: e.target.files[0] });
+    this.setState({ image: e.target.files[0] }); 
   };
 
   handleBidChange = e => {
@@ -42,7 +42,7 @@ class AuctionModal extends Component {
     const productID = this.state.productID;
     const title = this.state.title;
     const desc = this.state.desc;
-    const image = this.state.image;
+    const image = this.state.image; //image blir posta som tom fil
     const bid = this.state.startingBid;
     const sellerID = this.state.sellerID;
     const endDate = this.state.endDate;
