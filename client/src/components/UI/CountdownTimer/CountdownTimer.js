@@ -5,8 +5,7 @@ import './CountdownTimer.css';
 
 const countdownTimer = (props) => (
   <div className="countdownTimer">
-    Auksjonen avsluttes om: 
-  <Countdown date={Date.now() + props.auctionTime} />
+    <h2><Countdown date={Date.now() + props.auctionTime} /></h2>
   </div>);
  
 export default countdownTimer;
