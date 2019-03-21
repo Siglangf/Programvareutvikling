@@ -25,8 +25,8 @@ class AuctionModal extends Component {
 
   handlePictureChange = e => {
     //implementer validering av filtype ved å se på endelsen av filnavn(.png, .jpeg osv)
-    this.setState({ image: e.target.files[0] }); 
-  };
+    this.setState({ image: e.target.files[0] }); //Filen ses her, men ikke etter post
+  };                                             //Skriv om JS sikkerhet og POST https://www.sitepoint.com/community/t/javascript-onchange-submit-form-doesnt-post-upload-files-to-php/4809/12
 
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
