@@ -18,6 +18,15 @@ h4 {
  padding-left: 2.5rem;
 }
 
+.profileOption {
+  color: #E8481D;
+}
+
+.profileOption:hover{
+  font-size: 29px;
+  text-decoration: underline;
+}
+
 /* Header */
 
 .profile--image {
