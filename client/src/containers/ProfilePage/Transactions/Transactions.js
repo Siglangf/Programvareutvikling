@@ -9,26 +9,26 @@ class Transactions extends Component {
     transactions: [],
     /**
      * Dette er en DUMMY-transaksjon
-     * {buyerId: buyerID (navn), sellerId: sellerID (navn), auctionItem: (navnet til gjenstanden),  soldItem: (var dette et kjøp eller salg?, true/false), price: (prisen gjenstanden ble solgt for)  }
+     * {buyerId: buyerID (navn), sellerId: sellerID (navn), auctionItem: (navnet til gjenstanden), soldItem: (var dette et kjøp eller salg?, true/false), price: (prisen gjenstanden ble solgt for)  }
      */
   };
   
   componentDidMount = () => {
    //henter transaksjoner for brukeren ved et endpoint som JSON-objekter med ID hentet fra json-token
-    let userTransactions;
-   this.setState({transactions: userTransactions});
+    /*let userTransactions;
+   this.setState({transactions: userTransactions});*/
   }
 
   render() {
 
     const personalTransactions = this.state.transactions.map( (transaction) => (
-      <li className="transactionItem"><Transaction /></li>  
+      <li><Transaction /></li>
     ));
 
     return (
       <div>
         <ul>
-        {personalTransactions}
+        {this.state.transactions.length ? personalTransactions : <p>Ingen handler enda!</p>}
         </ul>         
       </div>
     );
