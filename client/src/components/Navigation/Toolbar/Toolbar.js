@@ -7,7 +7,7 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 
 const toolbar = ( props ) => (
     <header className={"Toolbar"}>
-        <img src={BudBuaLogo} style={{height: '125px', width: '125px', paddingLeft: '20px'}} alt="BudBua AS"/>
+        <img src={BudBuaLogo} style={{height: '90x', width: '90px', paddingLeft: '20px'}} alt="BudBua AS"/>
         <h1 style={{fontSize: '40px'}}>BudBua <span style={{color: '#e8491d'}}>AS</span></h1>
         <nav>
             <NavigationItems />
