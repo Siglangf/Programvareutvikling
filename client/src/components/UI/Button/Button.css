@@ -24,7 +24,6 @@ background-color: transparent;
   left: 0.25rem;
   border: none;
   transition: all .5s ease-in-out;
-  margin-top: 1.5rem;
 }
 
 .Button:hover {
