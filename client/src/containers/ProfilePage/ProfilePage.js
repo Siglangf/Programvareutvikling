@@ -21,31 +21,77 @@ class ProfilePage extends Component {
    }
  }
 
- render() {
+  adminPage = () => {
    return (
-     <div>
-       <div>
-         <img className="profile--image" src={profile} alt="Placeholder"/>
-       </div>
-       <div id="details">
-         <h2>{this.state.usr.firstName + " " + this.state.usr.lastName}</h2>
-         <h2>{this.state.usr.phoneNumber}</h2>
-       </div>
+    <div>
+    <div>
+      <img className="profile--image" src={profile} alt="Placeholder"/>
+    </div>
+    <div id="details">
+      <h1>Admin</h1>
+      <h2>{this.state.usr.firstName + " " + this.state.usr.lastName}</h2>
+      <h2>{this.state.usr.phoneNumber}</h2>
+    </div>
 
-       <div className="profile container grid-2">
-         <div>
-           <h4 onClick={() => this.setState({transactionsClicked: !this.state.transactionsClicked} )}className="profileOption">Mine handler</h4>
-           {this.state.transactionsClicked ? <Transactions /> : null}
-           <h4 className="profileOption">Vurderinger</h4>
-         </div>
-         <div>
-           <h4 className="profileOption">Endre profil</h4>
-           <h4 className="profileOption">Slett konto</h4>
-         </div>
-       </div>
-     </div>
+    <div className="profile container grid-3">
+      <div>
+        <h4 onClick={() => this.setState({transactionsClicked: !this.state.transactionsClicked} )}className="profileOption">Mine handler</h4>
+        {this.state.transactionsClicked ? <Transactions /> : null}
+        <h4 className="profileOption">Vurderinger</h4>
+      </div>
+      <div>
+        <h4 className="profileOption">Endre profil</h4>
+        <h4 className="grayedOut">Slett konto</h4>
+      </div>
+      <div>
+        <h4 className="profileOption">Slett bruker</h4>
+      </div>
+    </div>
+  </div>
    );
  }
+
+  userPage = () => {
+  return (
+    <div>
+      <div>
+        <img className="profile--image" src={profile} alt="Placeholder"/>
+      </div>
+      <div id="details">
+        <h2>{this.state.usr.firstName + " " + this.state.usr.lastName}</h2>
+        <h2>{this.state.usr.phoneNumber}</h2>
+      </div>
+
+      <div className="profile container grid-2">
+        <div>
+          <h4 onClick={() => this.setState({transactionsClicked: !this.state.transactionsClicked} )}className="profileOption">Mine handler</h4>
+          {this.state.transactionsClicked ? <Transactions /> : null}
+          <h4 className="profileOption">Vurderinger</h4>
+        </div>
+        <div>
+          <h4 className="profileOption">Endre profil</h4>
+          <h4 className="profileOption">Slett konto</h4>
+        </div>
+      </div>
+    </div>
+  );
+ }
+
+ render() {
+  const isAdmin = this.state.usr.isAdmin;
+
+  if (isAdmin === 1) {
+    console.log("AdminPage");
+    return (
+    this.adminPage()
+    );
+  } 
+  console.log("UserPage");
+  return (
+    this.userPage()
+  ); 
+ } 
+
 }
 
 ProfilePage.propTypes = {
@@ -55,6 +101,7 @@ ProfilePage.propTypes = {
  email: PropTypes.string,
  zipCode: PropTypes.string,
  streetName: PropTypes.string,
+ isAdmin: PropTypes.string,
 };
 
 
