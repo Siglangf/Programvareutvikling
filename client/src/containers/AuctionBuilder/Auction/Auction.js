@@ -47,33 +47,35 @@ class Auction extends Component {
     }
     return (
       <div className="auction">
-        <p className="auctionImage">Bilde: {this.props.image}</p>
-        <h4>Tittel: {this.props.title}</h4>
-        <p>Beskrivelse: {this.props.description}</p>
-        <p>Nåværende bud: {this.props.highestBid},- kr</p>
         {this.props.endDate > new Date().getTime() ? (
           <CountdownTimer
             auctionTime={this.props.endDate - new Date().getTime()}
           />
         ) : (
           <div>
-            <span style={{ color: "red" }}>Auksjonen er avsluttet!</span>
+            <h2>Auksjonen er avsluttet!</h2>
           </div>
         )}
-        {localStorage.getItem("token") === null ? null : (
-          <React.Fragment>
-            <input
-              className="bidInputField"
-              type="number"
-              title="bud"
-              placeholder="Legg inn bud her"
-              onChange={this.handleBidChange}
-            />
-            <Button className="auctionButton" clicked={this.handleBidClick}>
-              Legg inn bud
-            </Button>
-          </React.Fragment>
+        <p className="auctionImage">Bilde: {this.props.image}</p>
+        <h3>{this.props.title}</h3>
+        <p>{this.props.description}</p>
+        <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
+        <div className="footer">
+          {localStorage.getItem("token") === null ? null : (
+            <React.Fragment>
+              <input
+                className="bidInputField"
+                type="number"
+                title="bud"
+                placeholder="Legg inn bud her"
+                onChange={this.handleBidChange}
+              />
+              <Button className="auctionButton" clicked={this.handleBidClick}>
+                Legg inn bud
+              </Button>
+            </React.Fragment>
         )}
+        </div>
       </div>
     );
   }
