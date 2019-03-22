@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./AuctionModal.css";
 import Button from "../Button/Button";
 import jwtDecode from "jwt-decode";
-import FileBase64 from 'react-file-base64';
+import FileBase64 from "react-file-base64";
 class AuctionModal extends Component {
   //does not need any info
   state = {
@@ -23,8 +23,8 @@ class AuctionModal extends Component {
     this.setState({ desc: e.target.value });
   };
 
-  getFiles(files){
-   const base64img = files.base64.split(',')[1];
+  getFiles(files) {
+    const base64img = files.base64.split(",")[1];
     this.setState({ image: base64img });
   }
 
@@ -44,7 +44,6 @@ class AuctionModal extends Component {
     const desc = this.state.desc;
     const image = this.state.image;
     const bid = this.state.startingBid;
-    console.log(jwtDecode(localStorage.getItem("token")).userID);
     const sellerID = jwtDecode(localStorage.getItem("token")).userID;
     const endDate = this.state.endDate;
 
@@ -79,10 +78,8 @@ class AuctionModal extends Component {
             onChange={this.handleDescChange}
           />
           <p>Last opp bilde her: </p>
-          <span className="inputElementImage"><FileBase64
-            multiple={ false }
-            onDone={this.getFiles.bind(this)}
-          />
+          <span className="inputElementImage">
+            <FileBase64 multiple={false} onDone={this.getFiles.bind(this)} />
           </span>
           <input
             className="inputElementBid"
