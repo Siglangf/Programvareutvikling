@@ -74,17 +74,30 @@ router.post("/updateRating", async (req, res) => {
 });
 
 //hente relevante orders
-router.get("/orders", async (req, res) => {
-  const userID = req.body.state.userID;
+router.get("/myOrders", async (req, res) => {
+  const userID = req.query.userID;
 
   const sqlquery =
-    "SELECT * FROM orders WHERE buyerID = " +
+    "SELECT \
+  CONCAT(buyer.firstName,' ',buyer.lastName) AS buyer,\
+  buyer.email as buyerEmail,\
+  CONCAT(seller.firstName,' ',seller.lastName) AS seller,\
+  seller.email as sellerEmail,\
+  products.title AS product ,\
+  products.highestBid AS price , \
+  IF(seller.userID=" +
     userID +
-    " OR sellerID = " +
-    userID;
-
-  const orders = await sendQuery(server.pool, sqlquery);
-
+    ",0,1) as isSeller \
+  FROM orders as o \
+  INNER JOIN users as buyer ON o.buyerID=buyer.userID \
+  INNER JOIN users as seller ON o.sellerID=seller.userID\
+  INNER JOIN products ON o.productID=products.productID WHERE seller.userID=31 OR buyer.userID=" +
+    userID +
+    ";";
+  orders = await sendQuery(server.pool, sqlquery);
+  for (i = 0; i < orders.length; i++) {
+    orders[i] = JSON.parse(JSON.stringify(orders[i]));
+  }
   res.send(orders);
 });
 
