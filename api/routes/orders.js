@@ -1,5 +1,4 @@
 //Here we add all the functions for usershandling
-
 const express = require("express");
 const router = express.Router();
 const sendQuery = require("../database");
@@ -91,7 +90,9 @@ router.get("/myOrders", async (req, res) => {
   FROM orders as o \
   INNER JOIN users as buyer ON o.buyerID=buyer.userID \
   INNER JOIN users as seller ON o.sellerID=seller.userID\
-  INNER JOIN products ON o.productID=products.productID WHERE seller.userID=31 OR buyer.userID=" +
+  INNER JOIN products ON o.productID=products.productID WHERE seller.userID=" +
+    userID +
+    " OR buyer.userID=" +
     userID +
     ";";
   orders = await sendQuery(server.pool, sqlquery);
