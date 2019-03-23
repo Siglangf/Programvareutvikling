@@ -8,6 +8,7 @@ class Counter {
     this.productID = productID;
   }
   deleteCounter() {
+    console.log("Stopped old bid");
     clearTimeout(this.timer);
   }
   async startTimer(productID, pool) {
@@ -18,7 +19,6 @@ class Counter {
 
     const product = await sendQuery(pool, sqlquery);
     const timeRemaining = product[0].endDate - new Date().getTime();
-    console.log(timeRemaining);
     this.timer = setTimeout(() => {
       console.log("Transaction inserted");
       addOrder(

@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
   sqlquery = 'SELECT * FROM users WHERE email="' + email + '";';
   let user = await sendQuery(server.pool, sqlquery);
   user = JSON.parse(JSON.stringify(user[0]));
+  console.log(user);
   const token = jwt.sign(user, config.get("jwtPrivateKey"));
   res.send(token);
 });

@@ -18,13 +18,10 @@ class CounterController {
     }
   }
   addCounter(productID) {
-    console.log();
     this.counters.push(new Counter(productID, this.pool));
-    console.log(this.counters);
   }
   updateCounter(productID) {
     let counter = this.counters.find(c => c.productID === productID);
-    console.log(counter);
     counter.deleteCounter();
     this.counters = this.counters.filter(c => c.productID === productID);
     this.addCounter(productID);
