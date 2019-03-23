@@ -20,7 +20,6 @@ class Transactions extends Component {
   callbackendAPI = async () => {
     const userID = jwtDecode(localStorage.getItem("token")).userID;
     const response = await axios.get("/api/orders/myOrders?userID=" + userID);
-    console.log(response.data);
     if (response.status !== 200) {
       throw Error(response.status);
     }
