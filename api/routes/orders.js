@@ -9,31 +9,6 @@ const bodyparser = require("body-parser");
 router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
 
-//setter inn orders
-router.post("/insertOrder", async (req, res) => {
-  const buyerID = req.body.highestBidderID;
-  const sellerID = req.body.sellerID;
-  const productID = req.body.productID;
-  const ratedByBuyer = 0;
-  const ratedBySeller = 0;
-
-  const userValueArray = [
-    buyerID,
-    sellerID,
-    productID,
-    ratedByBuyer,
-    ratedBySeller
-  ];
-
-  let sqlquery =
-    "INSERT INTO orders (buyerID, sellerID, productID, ratedByBuyer, ratedBySeller) VALUES ";
-  sqlquery = sqlquery + generateValuelist(userValueArray);
-  await sendQuery(server.pool, sqlquery, userValueArray);
-
-  res.send("Order inserted where productID = " + productID);
-  res.send("Inserted");
-});
-
 //oppdatere bruker-rating, kan forsåvidt ligge i users.js også
 router.post("/updateRating", async (req, res) => {
   const ratingUserID = req.body.state.userID; //Hentes fra login

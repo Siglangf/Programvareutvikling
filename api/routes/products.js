@@ -35,7 +35,8 @@ router.post("/newProduct", auth, async (req, res) => {
   sqlquery =
     "INSERT INTO products (title, description, image, highestBid, highestBidder, startingBid, sellerID, endDate) VALUES " +
     generateValuelist(userValueArray);
-  await sendQuery(server.pool, sqlquery);
+  result = await sendQuery(server.pool, sqlquery);
+  server.CounterController.addCounter(result.insertId);
   res.send("Product inserted into table with startingbid: " + startingBid);
 });
 
@@ -53,9 +54,9 @@ router.put("/newBid", auth, async (req, res) => {
     " WHERE productID = " +
     productID +
     ";";
-  console.log(sqlquery);
 
   await sendQuery(server.pool, sqlquery);
+  server.CounterController.updateCounter(productID);
 
   res.send("Updated highestBidder where productID = " + productID);
 });
