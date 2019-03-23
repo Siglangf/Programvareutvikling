@@ -1,6 +1,7 @@
 const config = require("config");
 const express = require("express");
 const mysql = require("mysql");
+const CounterController = require("./api/middleware/CounterController");
 const users = require("./api/routes/users");
 const products = require("./api/routes/products");
 const orders = require("./api/routes/orders");
@@ -38,7 +39,6 @@ pool.getConnection((err, connection) => {
   if (connection) connection.release();
   return;
 }); //Creates connection to mysql_database
-
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -49,10 +49,13 @@ app.get("/express_backend", (req, res) => {
 
 /*When an endpoint with /api/users/<something more> is called from react, 
 the server sends the job to users.js in the api/routes/ folder*/
+
 app.use("/api/users", users);
 app.use("/api/products", products);
 app.use("/api/orders", orders);
 app.use("/api/reports", reports);
 app.use("/api/auth", auth);
 
+const CC = new CounterController(pool);
+exports.CounterController = CC;
 exports.pool = pool; //exports the connection so it can be required in the users.js module
