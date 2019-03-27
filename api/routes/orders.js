@@ -55,10 +55,13 @@ router.get("/myOrders", async (req, res) => {
     "SELECT \
   CONCAT(buyer.firstName,' ',buyer.lastName) AS buyer,\
   buyer.email as buyerEmail,\
+  buyer.userID as buyerID,\
   CONCAT(seller.firstName,' ',seller.lastName) AS seller,\
   seller.email as sellerEmail,\
+  seller.userID as sellerID,\
   products.title AS product ,\
   products.highestBid AS price , \
+  products.productID AS productID,\
   IF(seller.userID=" +
     userID +
     ",0,1) as isSeller \
