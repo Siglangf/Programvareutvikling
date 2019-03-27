@@ -1,87 +1,58 @@
-# Project Title
+# Prosjekt
 
-BudBua AS - New website and functionality
+BudBua AS - Ny nettside med funksjonalitet
 
-## Getting Started
+### Forhåndskrav
 
-Sprint 1
+For å kjøre prosjektet trengs npm: https://www.npmjs.com/get-npm
 
-### Prerequisites
+### Installering
 
-What things you need to install the software and how to install them
+1. Klon repoen med SSH/HTTP i ønsket lokasjon.
+2. Gå inn i mappen og npm install.
+3. Start server ved å skrive node server.js
+4. Gå inn i client-mappen og skriv npm start
+5. Koden vil nå kjøre i localhost:3000
 
-```
-Give examples
-```
+## Testing
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+Ikke ferdig
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Ikke ferdig
 
-## Built With
+## Bygd Med
 
 * MERN - MySQL, Express, ReactJS, NodeJS
-* [npm](https://www.npmjs.com/) - Package manager for JavaScript
 
-  #### Front-end
-* [Babel](https://babeljs.io/) - JavaScript compiler
-* [Webpack](https://webpack.js.org/) - Module bundler for modern JavaScript applications
+ #### Back-end
+* [MySQL](https://www.mysql.com/) - Databasehåndterings-program
+* [Express](https://expressjs.com/) - Web applikasjons rammeverk for Node.js
+* [Node](https://nodejs.org/en/) - Server-side JavaScript
 
+ #### Front-end
+* [JavaScript](https://www.javascript.com/) - Programmeringsspråket for HTML og Web
+* [Babel](https://babeljs.io/) - JavaScript kompilator
+* [Webpack](https://webpack.js.org/) - "Module bundler" for moderne JavaScript applikasjoner
+* [ReactJS](https://reactjs.org/) - JavaScript biblotek for å bygge brukergrensesnitt
 
 ## Git-conventions
 ### Branches:
-* master: update only for deployment (merge from dev)
-* dev: development branches, update continously
-* feat/feature-name: a branch that creates/improves a new feature into dev
-* design/area-name: a branch that creates/improves GUI/UX into dev
-* fix/bug-name: a branch that fixes a bug for dev
+* master: oppdateres kun ved deployment (merge fra dev)
+* dev: utviklings branches, oppdateres jenvlig
+* feat/feature-name: en branch som lager eller forbedrer funksjonalitet av en feature
+* design/area-name: en branch som forbedrer brukeropplevelsen til en feature
+* fix/bug-name: en branch som skal korrigere en bug
 
 ### Pull requests
-* At least two collaborators have to approve a pull request before it is merged in to dev-branch
-* Always use "Squash and merge" as merge-options (merge into dev)
+* To utviklere skal godkjenne merge requests før den merges inn i dev
+* Bruk alltid "Squash and merge" som merge-options (merge inn i dev)
 
 ## Git-flowsheet
-Added under Google Drive (PU gruppe 69) -> Git/git-cheat-sheet.png
+Lagt til i Google Drive (PU gruppe 69) -> Git/git-cheat-sheet.png
 
-## Folder-structure
+## Mappe struktur
 
 ### client 
 client is the client-side (frontend) part of the application
@@ -109,5 +80,5 @@ used for layout purposes
 
 ## Authors
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-69/graphs/dev) who participated in this project.
 
