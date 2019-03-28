@@ -63,36 +63,46 @@ router.post("/register", async (req, res) => {
 
 //oppdatere brukerinnstillinger
 //dersom en brukerinnstilling ikke er endret, endres ikke variablen i front-end
-router.post("/updateUserSettings", async (req, res) => {
+router.put("/", async (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const phoneNumber = req.body.phoneNumber;
   const email = req.body.email; //verifiser i front-end at email ikke allerede eksisterer
-  const password = req.body.password;
+  let password = req.body.password;
   const zipCode = req.body.zipCode;
   const streetName = req.body.streetName;
   const userID = req.body.userID;
 
-  const sqlquery =
-    "UPDATE user SET firstName = " +
+  let sqlquery =
+    "UPDATE users SET firstName = '" +
     firstName +
-    ", lastName = " +
+    "', lastName = '" +
     lastName +
-    ", phoneNumber = " +
+    "', phoneNumber = " +
     phoneNumber +
-    ", email = " +
+    ", email = '" +
     email +
-    ", password = " +
-    password +
-    ", zipCode = " +
+    "',";
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
+    sqlquery += "password = '" + password + "',";
+  }
+  sqlquery +=
+    "zipCode = " +
     zipCode +
-    ", streetName = " +
+    ", streetName = '" +
     streetName +
-    ", WHERE userID = " + userID + ";";
-
+    "' WHERE userID =" +
+    userID +
+    ";";
   await sendQuery(server.pool, sqlquery);
 
-  res.send("User updated where email = " + email);
+  sqlquery = "SELECT * FROM users WHERE userID=" + userID + ";";
+  let user = await sendQuery(server.pool, sqlquery);
+  user = JSON.parse(JSON.stringify(user[0]));
+  const token = jwt.sign(user, config.get("jwtPrivateKey"));
+  res.send(token);
 });
 
 //verifisere email
@@ -124,6 +134,5 @@ router.post("/returnUser", async (req, res) => {
 
   res.send(userResult);
 });
-
 
 module.exports = router;
