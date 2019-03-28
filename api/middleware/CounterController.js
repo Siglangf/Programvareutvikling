@@ -13,7 +13,9 @@ class CounterController {
     const products = await sendQuery(this.pool, sqlquery);
     for (let i = 0; i < products.length; i++) {
       if (products[i].endDate > new Date().getTime()) {
-        this.counters.push(new Counter(products[i].productID, this.pool));
+        this.counters.push(
+          new Counter(products[i].productID, products[i].endDate, this.pool)
+        );
       }
     }
   }
