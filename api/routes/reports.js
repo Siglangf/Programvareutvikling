@@ -4,6 +4,11 @@ const express = require("express");
 const router = express.Router();
 const sendQuery = require("../database");
 let server = require("../../server"); //get pool-connection from server
+const bodyparser = require("body-parser");
+const generateValuelist = require("../helpfunctions").generateValuelist;
+
+router.use(bodyparser.urlencoded({ extended: false }));
+router.use(bodyparser.json());
 
 //sette inn i reports
 router.post("/insertReport", async (req, res) => {
@@ -12,27 +17,33 @@ router.post("/insertReport", async (req, res) => {
   const productID = req.body.productID;
   const description = req.body.description;
 
-  const userValueArray = [
-    reportedUserID,
-    reportingUserID,
-    productID,
-    description
-  ];
+  const valueList = [reportedUserID, reportingUserID, productID, description];
 
-  const sqlquery =
-    "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ?";
-
-  await sendQuery(server.pool, sqlquery, userValueArray);
+  let sqlquery =
+    "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ";
+  sqlquery += generateValuelist(valueList);
+  await sendQuery(server.pool, sqlquery);
 
   res.send("Report inserted where productID = " + productID);
 });
 
 //hente reports
-router.get("/reports", async (req, res) => {
-  const sqlquery = "SELECT * FROM reports ORDER BY reportedUserID ASC";
-
+router.get("/", async (req, res) => {
+  const sqlquery =
+    "SELECT \
+  r.reportID,\
+  CONCAT(reporting.firstName,' ', reporting.lastName) as reportingUser,\
+  CONCAT(reported.firstName, ' ', reported.lastName) as reportedUser,\
+  r.description,\
+  product.title \
+  FROM reports as r \
+    INNER JOIN users as reporting ON r.reportingUserID=reporting.userID \
+    INNER JOIN users as reported ON r.reportedUserID=reported.userID\
+    INNER JOIN products as product on r.productID=product.productID;";
   const reports = await sendQuery(server.pool, sqlquery);
-
+  for (i = 0; i < reports.length; i++) {
+    reports[i] = JSON.parse(JSON.stringify(reports[i]));
+  }
   res.send(reports);
 });
 
