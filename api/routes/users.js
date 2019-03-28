@@ -71,6 +71,7 @@ router.post("/updateUserSettings", async (req, res) => {
   const password = req.body.password;
   const zipCode = req.body.zipCode;
   const streetName = req.body.streetName;
+  const userID = req.body.userID;
 
   const sqlquery =
     "UPDATE user SET firstName = " +
@@ -86,7 +87,8 @@ router.post("/updateUserSettings", async (req, res) => {
     ", zipCode = " +
     zipCode +
     ", streetName = " +
-    streetName;
+    streetName +
+    ", WHERE userID = " + userID + ";";
 
   await sendQuery(server.pool, sqlquery);
 
@@ -111,5 +113,17 @@ router.delete("/", async (req, res) => {
   await sendQuery(server.pool, sqlquery);
   res.send("User deleted where userID = " + userID);
 });
+
+//Hente en bruker
+router.post("/returnUser", async (req, res) => {
+  const userID = req.body.userID;
+
+  const sqlquery = "SELECT * FROM users WHERE userID = " + userID + ";";
+
+  const userResult = await sendQuery(server.pool, sqlquery);
+
+  res.send(userResult);
+});
+
 
 module.exports = router;

@@ -16,7 +16,8 @@ class Auction extends Component {
     sellerID: this.props.sellerID,
     endDate: this.props.endDate,
     key: this.props.key,
-    formBid: 0
+    formBid: 0,
+    location: ""
   };
 
   handleBidChange = e => {
@@ -41,10 +42,28 @@ class Auction extends Component {
       });
   };
 
+  handleFindLocation = () => {
+    axios
+      .post("/api/users/returnUser", {
+        userID: this.state.sellerID,
+      })
+      .then(response => {
+        this.setState({location: 'https://maps.googleapis.com/maps/api/staticmap?center=' + response.data[0].streetName + ',' + response.data[0].zipCode + '&size=600x300&key=AIzaSyCcGoNSAq9a12Md2nL_qYz35U_SzYWrXeI'})
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    
+  }
+
   render() {
     if (this.props.endDate > new Date().getTime()) {
       //this.handleEndedAuction();
     }
+    if (this.state.location === "") {
+      this.handleFindLocation();
+    }
+    
     return (
       <div className="auction">
         {this.props.endDate > new Date().getTime() ? (
@@ -62,6 +81,8 @@ class Auction extends Component {
         <h3>{this.props.title}</h3>
         <p>{this.props.description}</p>
         <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
+        <br/>
+        <p><a href={this.state.location} target="_blank">Se kart her</a></p>
         <div className="footer">
           {localStorage.getItem("token") === null ? null : (
             <React.Fragment>
