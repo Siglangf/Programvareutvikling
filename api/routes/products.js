@@ -12,6 +12,7 @@ router.use(bodyparser.json());
 
 //sette inn auksjon
 router.post("/newProduct", auth, async (req, res) => {
+  console.log(req.body);
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
@@ -54,9 +55,7 @@ router.put("/newBid", auth, async (req, res) => {
     " WHERE productID = " +
     productID +
     ";";
-
   await sendQuery(server.pool, sqlquery);
-  server.CounterController.updateCounter(productID);
 
   res.send("Updated highestBidder where productID = " + productID);
 });

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
 import Button from "../../../components/UI/Button/Button";
 import "./ChangeProfile.css";
-import PropTypes from "prop-types";
 import axios from "axios";
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-class RegisterUser extends Component {
+class ChangeProfile extends Component {
+
   state = {
     firstName: "",
     lastName: "",
@@ -15,32 +15,7 @@ class RegisterUser extends Component {
     repeatedPassword: "",
     zipCode: "",
     streetName: "",
-    registeredUser: false,
-  };
-
-  validateName = (firstname, lastname) => {
-    return (
-      firstname.length >= 1 &&
-      /^[A-Za-z]+$/.test(firstname) &&
-      (lastname.length >= 1 && /^[A-Za-z]+$/.test(lastname))
-    );
-  };
-
-  validatePhoneNumber = number => {
-    return /^[0-9]{8}$/.test(number);
-  };
-
-  validateZipCode = zipcode => {
-    return zipcode.length >= 3;
-  };
-
-  validateStreetName = street => {
-    return street.length >= 5;
-  };
-
-  validateEmail = email => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    redirect: false,
   };
 
   handleFirstNameChange = e => {
@@ -78,7 +53,7 @@ class RegisterUser extends Component {
   handleSubmit = e => {
     //checks that every form has one element and password is the same as repeated password
     axios
-      .post("/api/users/register", {
+      .post("/api/users/ENDREPROFILETELLERANNET", {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         phoneNumber: this.state.phoneNumber,
@@ -98,95 +73,79 @@ class RegisterUser extends Component {
           repeatedPassword: "",
           zipCode: "",
           streetName: "",
-          validState: false,
-          registeredUser: true,
       });
       })
       .catch(error => {
         console.log(error);
-        this.setState({registeredUser: false});
       }) 
   };
-
   render() {
-    
-    if (this.state.registeredUser){
-      return <Redirect push to="/" />;
+
+    if (this.state.redirect) {
+      return <Redirect push to="/myuser" />;
     }
-    
     return (
       <div className="registerUser">
-        <form className="registerForm">
-          <h1 className="registerTitle">Endre bruker her</h1>
-          <input
-            type="text"
-            className="loginInput"
-            placeholder={this.props.firstName}
-            onChange={this.handleFirstNameChange}
-          />
-          <input
-            type="text"
-            className="loginInput"
-            placeholder="Etternavn"
-            onChange={this.handleLastNameChange}
-          />
-          <input
-            type="text"
-            className="loginInput"
-            placeholder="Telefonnummer"
-            onChange={this.handleNumberChange}
-          />
-          <input
-            type="text"
-            className="loginInput"
-            placeholder="Addresse"
-            onChange={this.handleStreetNameChange}
-          />
-          <input
-            type="text"
-            className="loginInput"
-            placeholder="Postnummer"
-            onChange={this.handleZipCodeChange}
-          />
-          <input
-            type="text"
-            className="loginInput"
-            placeholder="Email"
-            onChange={this.handleEmailChange}
-          />
-          <input
-            type="password"
-            className="loginInput"
-            placeholder="Passord"
-            onChange={this.handlePasswordChange}
-          />
-          <input
-            type="password"
-            className="loginInput"
-            placeholder="Gjenta passord"
-            onChange={this.handleRepeatPasswordChange}
-          />
-        </form>
-        <Button className="registerButton" clicked={this.handleSubmit}>
-          Bekreft
-        </Button>
-      </div>
+      <form className="registerForm">
+        <h1 className="registerTitle">Endre informasjonen din her:</h1>
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Nytt fornavn"
+          onChange={this.handleFirstNameChange}
+        />
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Nytt etternavn"
+          onChange={this.handleLastNameChange}
+        />
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Nytt telefonnummer"
+          onChange={this.handleNumberChange}
+        />
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Ny addresse"
+          onChange={this.handleStreetNameChange}
+        />
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Nytt postnummer"
+          onChange={this.handleZipCodeChange}
+        />
+        <input
+          type="text"
+          className="loginInput"
+          placeholder="Ny email"
+          onChange={this.handleEmailChange}
+        />
+        <input
+          type="password"
+          className="loginInput"
+          placeholder="Nytt passord"
+          onChange={this.handlePasswordChange}
+        />
+        <input
+          type="password"
+          className="loginInput"
+          placeholder="Gjenta nytt passord"
+          onChange={this.handleRepeatPasswordChange}
+        />
+      </form>
+      <Button className="registerButton" clicked={this.handleSubmit}>
+        Bekreft
+      </Button>
+      <Button className="registerButton" clicked={() => this.setState({redirect: true})}>
+        Tilbake
+      </Button>
+  </div>
     );
   }
 }
 
-RegisterUser.propTypes = {
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  phoneNumber: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  repeatedPassword: PropTypes.string,
-  zipCode: PropTypes.string,
-  streetName: PropTypes.string,
-  validState: PropTypes.bool
-};
-
-export default RegisterUser;
-
-//Send API to api/users/register
+export default ChangeProfile;

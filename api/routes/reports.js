@@ -1,29 +1,28 @@
 //Here we add all the functions for usershandling
-
+const generateValueList = require("../helpfunctions").generateValuelist;
 const express = require("express");
 const router = express.Router();
+const bodyparser = require("body-parser");
 const sendQuery = require("../database");
 let server = require("../../server"); //get pool-connection from server
-const bodyparser = require("body-parser");
 const generateValuelist = require("../helpfunctions").generateValuelist;
 
 router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
 
 //sette inn i reports
-router.post("/insertReport", async (req, res) => {
+router.post("/newReport", async (req, res) => {
   const reportedUserID = req.body.reportedUserID;
-  const reportingUserID = req.body.userID;
+  const reportingUserID = req.body.reportingUserID;
   const productID = req.body.productID;
   const description = req.body.description;
 
   const valueList = [reportedUserID, reportingUserID, productID, description];
 
   let sqlquery =
-    "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ";
-  sqlquery += generateValuelist(valueList);
+    "INSERT INTO repots (reportedUserID, reportingUserID, productID, description) VALUES ";
+  sqlquery += generateValueList(valueList);
   await sendQuery(server.pool, sqlquery);
-
   res.send("Report inserted where productID = " + productID);
 });
 
