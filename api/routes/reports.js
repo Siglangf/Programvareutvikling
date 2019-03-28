@@ -5,11 +5,7 @@ const router = express.Router();
 const bodyparser = require("body-parser");
 const sendQuery = require("../database");
 let server = require("../../server"); //get pool-connection from server
-const bodyparser = require("body-parser");
 const generateValuelist = require("../helpfunctions").generateValuelist;
-
-router.use(bodyparser.urlencoded({ extended: false }));
-router.use(bodyparser.json());
 
 router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
@@ -22,11 +18,6 @@ router.post("/newReport", async (req, res) => {
   const description = req.body.description;
 
   const valueList = [reportedUserID, reportingUserID, productID, description];
-
-  let sqlquery =
-    "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ";
-  sqlquery += generateValuelist(valueList);
-  await sendQuery(server.pool, sqlquery);
 
   let sqlquery =
     "INSERT INTO repots (reportedUserID, reportingUserID, productID, description) VALUES ";
