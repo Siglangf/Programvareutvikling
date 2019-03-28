@@ -3,6 +3,7 @@ import "./ChangeProfile.css";
 import axios from "axios";
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import jwtDecode from "jwt-decode";
 
 class ChangeProfile extends Component {
 
@@ -16,6 +17,17 @@ class ChangeProfile extends Component {
     zipCode: "",
     streetName: "",
     redirect: false,
+    usr: null,
+  };
+
+  componentWillMount = () => {
+    try {
+      const jwt = localStorage.getItem("token"); //check if token exists
+      const user = jwtDecode(jwt); //decode token
+      this.setState({ usr: user }); //webtoken exist, logged in
+    } catch (ex) {
+      //webtoken do not exist, logged out
+    }
   };
 
   handleFirstNameChange = e => {
@@ -53,7 +65,9 @@ class ChangeProfile extends Component {
   handleSubmit = e => {
     //checks that every form has one element and password is the same as repeated password
     axios
-      .post("/api/users/ENDREPROFILETELLERANNET", {
+    //HER SKAL ENDPOINT VÆRE  
+    .post("/api/users/ENDREPROFILETELLERANNET", {
+      //HER SKAL INFO SENDES INN 
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         phoneNumber: this.state.phoneNumber,
@@ -92,36 +106,42 @@ class ChangeProfile extends Component {
           type="text"
           className="loginInput"
           placeholder="Nytt fornavn"
+          value={this.state.usr.firstName}
           onChange={this.handleFirstNameChange}
         />
         <input
           type="text"
           className="loginInput"
           placeholder="Nytt etternavn"
+          value={this.state.usr.lastName}
           onChange={this.handleLastNameChange}
         />
         <input
           type="text"
           className="loginInput"
           placeholder="Nytt telefonnummer"
+          value={this.state.usr.phoneNumber}
           onChange={this.handleNumberChange}
         />
         <input
           type="text"
           className="loginInput"
           placeholder="Ny addresse"
+          value={this.state.usr.streetName}
           onChange={this.handleStreetNameChange}
         />
         <input
           type="text"
           className="loginInput"
           placeholder="Nytt postnummer"
+          value={this.state.usr.zipCode}
           onChange={this.handleZipCodeChange}
         />
         <input
           type="text"
           className="loginInput"
           placeholder="Ny email"
+          value={this.state.usr.email}
           onChange={this.handleEmailChange}
         />
         <input
