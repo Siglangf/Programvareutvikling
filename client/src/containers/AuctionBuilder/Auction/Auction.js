@@ -62,6 +62,8 @@ class Auction extends Component {
         <h3>{this.props.title}</h3>
         <p>{this.props.description}</p>
         <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
+        <br/>
+        <p><a href="https://maps.googleapis.com/maps/api/staticmap?center=Skolegata,1,7018&size=600x300&key=AIzaSyCcGoNSAq9a12Md2nL_qYz35U_SzYWrXeI" target="_blank">Se kart her</a></p>
         <div className="footer">
           {localStorage.getItem("token") === null ? null : (
             <React.Fragment>
