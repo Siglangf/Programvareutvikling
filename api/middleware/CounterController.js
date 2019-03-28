@@ -17,14 +17,8 @@ class CounterController {
       }
     }
   }
-  addCounter(productID) {
-    this.counters.push(new Counter(productID, this.pool));
-  }
-  updateCounter(productID) {
-    let counter = this.counters.find(c => c.productID === productID);
-    counter.deleteCounter();
-    this.counters = this.counters.filter(c => c.productID === productID);
-    this.addCounter(productID);
+  addCounter(productID, endDate) {
+    this.counters.push(new Counter(productID, endDate, this.pool));
   }
 }
 module.exports = CounterController;

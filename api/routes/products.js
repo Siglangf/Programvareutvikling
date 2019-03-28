@@ -55,9 +55,7 @@ router.put("/newBid", auth, async (req, res) => {
     " WHERE productID = " +
     productID +
     ";";
-
   await sendQuery(server.pool, sqlquery);
-  server.CounterController.updateCounter(productID);
 
   res.send("Updated highestBidder where productID = " + productID);
 });
