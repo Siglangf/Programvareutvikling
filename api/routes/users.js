@@ -105,12 +105,10 @@ router.get("/returnEmail", async (req, res) => {
 });
 
 //slette bruker fra systemet
-router.post("/delete", async (req, res) => {
-  const userID = req.body.userID;
-  const sqlquery = "DELETE FROM user WHERE userID = " + userID;
-
+router.delete("/", async (req, res) => {
+  const userID = req.query.userID;
+  const sqlquery = "DELETE FROM users WHERE userID = " + userID + ";";
   await sendQuery(server.pool, sqlquery);
-
   res.send("User deleted where userID = " + userID);
 });
 
