@@ -5,6 +5,7 @@ import profile from '../../assets/placeholder.jpg' ;
 import PropTypes from "prop-types";
 import Transactions from './Transactions/Transactions';
 import ChangeProfile from './ChangeProfile/ChangeProfile';
+import { Redirect } from 'react-router-dom';
 class ProfilePage extends Component {
  
   state = { usr: {},
@@ -42,7 +43,7 @@ class ProfilePage extends Component {
       </div>
       <div>
       <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
-        {this.state.changeProfileClicked ? <ChangeProfile /> : null}
+        {this.state.changeProfileClicked ? <Redirect push to="/change" /> : null}
         <h4 className="grayedOut">Slett konto</h4>
       </div>
       <div>
@@ -72,7 +73,7 @@ class ProfilePage extends Component {
         </div>
         <div>
         <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
-        {this.state.changeProfileClicked ? <ChangeProfile /> : null}
+        {this.state.changeProfileClicked ? <Redirect push to="/change" /> : null}
           <h4 className="profileOption">Slett konto</h4>
         </div>
       </div>
