@@ -4,11 +4,12 @@ import './ProfilePage.css';
 import profile from '../../assets/placeholder.jpg' ;
 import PropTypes from "prop-types";
 import Transactions from './Transactions/Transactions';
+import ChangeProfile from './ChangeProfile/ChangeProfile';
 class ProfilePage extends Component {
  
   state = { usr: {},
     transactionsClicked: false,
-    
+    changeProfileClicked: false,
   };
 
   componentWillMount = () => {
@@ -35,12 +36,13 @@ class ProfilePage extends Component {
 
     <div className="profile container grid-3">
       <div>
-        <h4 onClick={() => this.setState({transactionsClicked: !this.state.transactionsClicked} )}className="profileOption">Mine handler</h4>
-        {this.state.transactionsClicked ? <Transactions /> : null}
+      <h4 onClick={() => this.setState({transactionsClicked: !this.state.transactionsClicked} )}className="profileOption">Mine handler</h4>
+          {this.state.transactionsClicked ? <Transactions /> : null}
         <h4 className="profileOption">Vurderinger</h4>
       </div>
       <div>
-        <h4 className="profileOption">Endre profil</h4>
+      <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
+        {this.state.changeProfileClicked ? <ChangeProfile /> : null}
         <h4 className="grayedOut">Slett konto</h4>
       </div>
       <div>
@@ -69,7 +71,8 @@ class ProfilePage extends Component {
           <h4 className="profileOption">Vurderinger</h4>
         </div>
         <div>
-          <h4 className="profileOption">Endre profil</h4>
+        <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
+        {this.state.changeProfileClicked ? <ChangeProfile /> : null}
           <h4 className="profileOption">Slett konto</h4>
         </div>
       </div>
