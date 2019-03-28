@@ -12,7 +12,6 @@ router.use(bodyparser.json());
 
 //sette inn auksjon
 router.post("/newProduct", auth, async (req, res) => {
-  console.log(req.body);
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
