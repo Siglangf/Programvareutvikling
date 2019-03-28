@@ -2,25 +2,22 @@ const sendQuery = require("../database");
 const addOrder = require("../helpfunctions").addOrder;
 
 class Counter {
-  constructor(productID, pool) {
+  constructor(productID, endDate, pool) {
     this.startTimer(productID, pool);
     this.timer = null;
     this.productID = productID;
-  }
-  deleteCounter() {
-    console.log("Stopped old bid");
-    clearTimeout(this.timer);
+    this.endDate = endDate;
   }
   async startTimer(productID, pool) {
-    const sqlquery =
-      "SELECT productID,sellerID,highestBidder,endDate from products WHERE productID=" +
-      productID +
-      ";";
-
-    const product = await sendQuery(pool, sqlquery);
-    const timeRemaining = product[0].endDate - new Date().getTime();
-    this.timer = setTimeout(() => {
+    const timeRemaining = this.endDate - new Date().getTime();
+    this.timer = setTimeout(async () => {
+      const sqlquery =
+        "SELECT productID,sellerID,highestBidder,endDate from products WHERE productID=" +
+        productID +
+        ";";
+      const product = await sendQuery(pool, sqlquery);
       console.log("Transaction inserted");
+      console.log(product);
       addOrder(
         pool,
         product[0].highestBidder,
