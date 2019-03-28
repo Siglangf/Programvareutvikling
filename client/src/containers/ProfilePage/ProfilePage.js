@@ -3,11 +3,17 @@ import jwtDecode from "jwt-decode";
 import "./ProfilePage.css";
 import profile from "../../assets/placeholder.jpg";
 import PropTypes from "prop-types";
-import Transactions from "./Transactions/Transactions";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
+import Transactions from './Transactions/Transactions';
+import ChangeProfile from './ChangeProfile/ChangeProfile';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 class ProfilePage extends Component {
-  state = { usr: null, transactionsClicked: false };
+ 
+  state = { usr: {},
+    transactionsClicked: false,
+    changeProfileClicked: false,
+    usr: null,
+  };
 
   componentWillMount = () => {
     try {
@@ -18,6 +24,7 @@ class ProfilePage extends Component {
       //webtoken do not exist, logged out
     }
   };
+
   handleUserDelete = async () => {
     const ID = jwtDecode(localStorage.getItem("token")).userID;
     await axios.delete("api/users?userID=" + ID).then(res => {
@@ -37,7 +44,6 @@ class ProfilePage extends Component {
           <h2>{this.state.usr.firstName + " " + this.state.usr.lastName}</h2>
           <h2>{this.state.usr.phoneNumber}</h2>
         </div>
-
         <div className="profile container grid-3">
           <div>
             <h4
@@ -71,6 +77,7 @@ class ProfilePage extends Component {
         <div>
           <img className="profile--image" src={profile} alt="Placeholder" />
         </div>
+        <div>
         <div id="details">
           <h2>{this.state.usr.firstName + " " + this.state.usr.lastName}</h2>
           <h2>{this.state.usr.phoneNumber}</h2>
@@ -92,16 +99,17 @@ class ProfilePage extends Component {
             <h4 className="profileOption">Vurderinger</h4>
           </div>
           <div>
-            <h4 className="profileOption">Endre profil</h4>
+          <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
+        {this.state.changeProfileClicked ? <Redirect push to="/change" /> : null}
             <h4 className="profileOption" onClick={this.handleUserDelete}>
               Slett konto
             </h4>
           </div>
         </div>
       </div>
+      </div>
     );
-  };
-
+    }
   render() {
     let redirect = false;
     let visiblePage = null;
