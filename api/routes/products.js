@@ -12,7 +12,6 @@ router.use(bodyparser.json());
 
 //sette inn auksjon
 router.post("/newProduct", auth, async (req, res) => {
-  console.log(req.body);
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.image; //forsiktig med filtype
@@ -32,13 +31,14 @@ router.post("/newProduct", auth, async (req, res) => {
     sellerID,
     endDate
   ];
+  console.log(userValueArray);
 
   sqlquery =
     "INSERT INTO products (title, description, image, highestBid, highestBidder, startingBid, sellerID, endDate) VALUES " +
     generateValuelist(userValueArray);
   result = await sendQuery(server.pool, sqlquery);
   server.CounterController.addCounter(result.insertId, endDate);
-  res.send("Product inserted into table with startingbid: " + startingBid);
+  res.send({ productID: result.insertId });
 });
 
 //oppdatere highestBidder
@@ -64,6 +64,17 @@ router.get("/all", async (req, res) => {
   const sqlquery = "SELECT * FROM products ORDER BY endDate ASC";
   const auctions = await sendQuery(server.pool, sqlquery);
   res.send(auctions);
+});
+
+router.delete("/", async (req, res) => {
+  const productID = req.query.productID;
+  const sqlquery = "DELETE FROM products WHERE productID=" + productID + ";";
+  try {
+    await sendQuery(server.pool, sqlquery);
+  } catch {
+    res.status(400);
+  }
+  res.send("Product deleted where productID = " + productID);
 });
 
 module.exports = router;

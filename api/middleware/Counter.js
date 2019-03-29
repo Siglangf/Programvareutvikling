@@ -16,14 +16,16 @@ class Counter {
         productID +
         ";";
       const product = await sendQuery(pool, sqlquery);
-      addOrder(
-        pool,
-        product[0].highestBidder,
-        product[0].sellerID,
-        product[0].productID,
-        0,
-        0
-      );
+      if (product[0]) {
+        addOrder(
+          pool,
+          product[0].highestBidder,
+          product[0].sellerID,
+          product[0].productID,
+          0,
+          0
+        );
+      }
     }, timeRemaining);
   }
 }
