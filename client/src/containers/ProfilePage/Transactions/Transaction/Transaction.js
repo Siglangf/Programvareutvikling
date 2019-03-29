@@ -27,8 +27,8 @@ class Transaction extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/reports/newReport/', {
-      reportedUserID: this.props.isSeller ? this.props.buyerID : this.props.sellerID,
-      reportingUserID: this.props.isSeller ? this.props.sellerID : this.props.buyerID,
+      reportedUserID: !this.props.isSeller ? this.props.buyerID : this.props.sellerID,
+      reportingUserID: !this.props.isSeller ? this.props.sellerID : this.props.buyerID,
       productID: this.props.productID,
       description: this.state.desc
     }).then(res => {console.log(res);
