@@ -15,6 +15,7 @@ if (!config.get("jwtPrivateKey")) {
 }
 
 const port = process.env.PORT || 5000;
+app.use(express.static(path.join(__dirname, "client/build")));
 
 let pool = mysql.createPool({
   connectionLimit: 10,
