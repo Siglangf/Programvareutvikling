@@ -44,6 +44,7 @@ router.post("/register", async (req, res) => {
     rating,
     password
   ];
+  console.log(userValueArray);
 
   let sqlquery = 'SELECT email FROM users WHERE email="' + email + '";';
   let response = await sendQuery(server.pool, sqlquery);
@@ -54,6 +55,7 @@ router.post("/register", async (req, res) => {
     "INSERT INTO users (firstName, lastName, phonenumber, email, zipCode, streetName, isAdmin, rating, password) VALUES ";
   sqlquery = sqlquery + generateValuelist(userValueArray);
   await sendQuery(server.pool, sqlquery);
+  console.log("inserted");
   sqlquery = 'SELECT * FROM users WHERE email="' + email + '";';
   let user = await sendQuery(server.pool, sqlquery);
   user = JSON.parse(JSON.stringify(user[0]));
