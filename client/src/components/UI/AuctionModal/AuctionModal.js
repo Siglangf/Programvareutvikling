@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import { runInThisContext } from "vm";
 import "./AuctionModal.css";
 import Button from "../Button/Button";
 import jwtDecode from "jwt-decode";
+<<<<<<< HEAD
+=======
+import FileBase64 from "react-file-base64";
+>>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 class AuctionModal extends Component {
   //does not need any info
   state = {
     productID: "",
     title: "",
     desc: "",
-    image: "",
+    image: null,
     startingBid: "",
     highestBid: "",
     endDate: 0
@@ -23,9 +26,16 @@ class AuctionModal extends Component {
     this.setState({ desc: e.target.value });
   };
 
+<<<<<<< HEAD
   handlePictureChange = e => {
     this.setState({ image: e.target.value });
   };
+=======
+  getFiles(files) {
+    const base64img = files.base64.split(",")[1];
+    this.setState({ image: base64img });
+  }
+>>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 
   handleBidChange = e => {
     this.setState({ startingBid: e.target.value });
@@ -43,7 +53,10 @@ class AuctionModal extends Component {
     const desc = this.state.desc;
     const image = this.state.image;
     const bid = this.state.startingBid;
+<<<<<<< HEAD
     console.log(jwtDecode(localStorage.getItem("token")).userID);
+=======
+>>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
     const sellerID = jwtDecode(localStorage.getItem("token")).userID;
     const endDate = this.state.endDate;
 
@@ -77,13 +90,10 @@ class AuctionModal extends Component {
             placeholder="Beskrivelse"
             onChange={this.handleDescChange}
           />
-          <input
-            className="inputElementImage"
-            type="text"
-            title="bilde"
-            placeholder="Bilde her..."
-            onChange={this.handlePictureChange}
-          />
+          <p>Last opp bilde her: </p>
+          <span className="inputElementImage">
+            <FileBase64 multiple={false} onDone={this.getFiles.bind(this)} />
+          </span>
           <input
             className="inputElementBid"
             type="number"
