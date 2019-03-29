@@ -75,8 +75,8 @@ class Auction extends Component {
             <h2>Auksjonen er avsluttet!</h2>
           </div>
         )}
-        <span className="auctionImage">
-        <img src={"data:image/jpeg;base64," + this.props.image} alt="product"/>
+        <span>
+        <img className="auctionImage" src={"data:image/jpeg;base64," + this.props.image} alt="product"/>
         </span>
         <h3>{this.props.title}</h3>
         <p>{this.props.description}</p>
