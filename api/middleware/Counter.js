@@ -3,12 +3,12 @@ const addOrder = require("../helpfunctions").addOrder;
 
 class Counter {
   constructor(productID, endDate, pool) {
-    this.startTimer(productID, pool);
     this.timer = null;
     this.productID = productID;
     this.endDate = endDate;
+    this.startTimer(productID, pool);
   }
-  async startTimer(productID, pool) {
+  startTimer(productID, pool) {
     const timeRemaining = this.endDate - new Date().getTime();
     this.timer = setTimeout(async () => {
       const sqlquery =
@@ -16,8 +16,6 @@ class Counter {
         productID +
         ";";
       const product = await sendQuery(pool, sqlquery);
-      console.log("Transaction inserted");
-      console.log(product);
       addOrder(
         pool,
         product[0].highestBidder,
