@@ -27,24 +27,17 @@ h4 {
   text-decoration: underline;
 }
 
-<<<<<<< HEAD
-=======
 .grayedOut {
   color: gray;
 }
 
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 /* Header */
 
 .profile--image {
  position: relative;
  width: 275px;
  top: 4rem;
-<<<<<<< HEAD
- left: 15rem;
-=======
  left: 17rem;
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
  overflow: hidden;
  border-radius: 50%;
  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -59,12 +52,6 @@ h4 {
 
 #details {
  position: absolute;
-<<<<<<< HEAD
- left: 37rem;
- top: 20rem;
-}
-
-=======
  left: 39rem;
  top: 20rem;
 }
@@ -73,7 +60,6 @@ h4 {
   margin-top: -1rem;
 }
 
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 #details h2 {
  font-weight: normal;
  font-family: 'Fira Sans Condensed', sans-serif;

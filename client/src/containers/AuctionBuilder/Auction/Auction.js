@@ -16,34 +16,8 @@ class Auction extends Component {
     sellerID: this.props.sellerID,
     endDate: this.props.endDate,
     key: this.props.key,
-<<<<<<< HEAD
-    formBid: 0
-  };
-
-  handleBidChange = e => {
-    this.setState({ formBid: e.target.value });
-  };
-
-  handleBidClick = () => {
-    this.props.onBid(this.state.productID, this.state.formBid);
-  };
-  handleEndedAuction = () => {
-    axios
-      .post("/api/orders/insertOrder", {
-        productID: this.state.productID,
-        sellerID: this.state.sellerID,
-        highestBidderID: this.state.highestBidder
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-=======
     formBid: 0,
     location: ""
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
   };
 
   handleBidChange = e => {
@@ -86,13 +60,10 @@ class Auction extends Component {
     if (this.props.endDate > new Date().getTime()) {
       //this.handleEndedAuction();
     }
-<<<<<<< HEAD
-=======
     if (this.state.location === "") {
       this.handleFindLocation();
     }
     
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
     return (
       <div className="auction">
         {this.props.endDate > new Date().getTime() ? (
@@ -104,12 +75,6 @@ class Auction extends Component {
             <h2>Auksjonen er avsluttet!</h2>
           </div>
         )}
-<<<<<<< HEAD
-        <p className="auctionImage">Bilde: {this.props.image}</p>
-        <h3>{this.props.title}</h3>
-        <p>{this.props.description}</p>
-        <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
-=======
         <span className="auctionImage">
         <img src={"data:image/jpeg;base64," + this.props.image} alt="product"/>
         </span>
@@ -118,7 +83,6 @@ class Auction extends Component {
         <h4>Nåværende bud:<h5>{this.props.highestBid}kr</h5></h4>
         <br/>
         <p><a href={this.state.location} target="_blank">Se kart her</a></p>
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
         <div className="footer">
           {localStorage.getItem("token") === null ? null : (
             <React.Fragment>

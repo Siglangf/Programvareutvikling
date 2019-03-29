@@ -8,34 +8,6 @@ const bodyparser = require("body-parser");
 
 router.use(bodyparser.urlencoded({ extended: false }));
 router.use(bodyparser.json());
-<<<<<<< HEAD
-
-//setter inn orders
-router.post("/insertOrder", async (req, res) => {
-  const buyerID = req.body.highestBidderID;
-  const sellerID = req.body.sellerID;
-  const productID = req.body.productID;
-  const ratedByBuyer = 0;
-  const ratedBySeller = 0;
-
-  const userValueArray = [
-    buyerID,
-    sellerID,
-    productID,
-    ratedByBuyer,
-    ratedBySeller
-  ];
-
-  let sqlquery =
-    "INSERT INTO orders (buyerID, sellerID, productID, ratedByBuyer, ratedBySeller) VALUES ";
-  sqlquery = sqlquery + generateValuelist(userValueArray);
-  await sendQuery(server.pool, sqlquery, userValueArray);
-
-  res.send("Order inserted where productID = " + productID);
-  res.send("Inserted");
-});
-=======
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 
 //oppdatere bruker-rating, kan forsåvidt ligge i users.js også
 router.post("/updateRating", async (req, res) => {
@@ -76,21 +48,8 @@ router.post("/updateRating", async (req, res) => {
 });
 
 //hente relevante orders
-<<<<<<< HEAD
-router.get("/orders", async (req, res) => {
-  const userID = req.body.state.userID;
-
-  const sqlquery =
-    "SELECT * FROM orders WHERE buyerID = " +
-    userID +
-    " OR sellerID = " +
-    userID;
-
-  const orders = await sendQuery(server.pool, sqlquery);
-=======
 router.get("/myOrders", async (req, res) => {
   const userID = req.query.userID;
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 
   const sqlquery =
     "SELECT \

@@ -3,11 +3,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const sendQuery = require("../database");
-<<<<<<< HEAD
-const bcrypt = require("bcrypt");
-=======
 const bcrypt = require("bcryptjs");
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 const generateValuelist = require("../helpfunctions").generateValuelist;
 let server = require("../../server"); //get pool-connection from server
 const bodyparser = require("body-parser");

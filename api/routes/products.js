@@ -55,11 +55,6 @@ router.put("/newBid", auth, async (req, res) => {
     " WHERE productID = " +
     productID +
     ";";
-<<<<<<< HEAD
-  console.log(sqlquery);
-
-=======
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
   await sendQuery(server.pool, sqlquery);
   res.send("Updated highestBidder where productID = " + productID);
 });

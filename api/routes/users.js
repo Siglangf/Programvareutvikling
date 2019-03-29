@@ -2,11 +2,7 @@
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const express = require("express");
-<<<<<<< HEAD
-const bcrypt = require("bcrypt");
-=======
 const bcrypt = require("bcryptjs");
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 const router = express.Router();
 const sendQuery = require("../database");
 const generateValuelist = require("../helpfunctions").generateValuelist;
@@ -128,8 +124,6 @@ router.delete("/", async (req, res) => {
   res.send("User deleted where userID = " + userID);
 });
 
-<<<<<<< HEAD
-=======
 //Hente en bruker
 router.post("/returnUser", async (req, res) => {
   const userID = req.body.userID;
@@ -141,5 +135,4 @@ router.post("/returnUser", async (req, res) => {
   res.send(userResult);
 });
 
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 module.exports = router;

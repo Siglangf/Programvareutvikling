@@ -17,11 +17,7 @@ body {
   background: #F2F2F2;
   transition: all .5s ease-in-out;
   color: #333;
-<<<<<<< HEAD
-  padding: 1rem 0 1rem 0;
-=======
   padding: 1rem 0 0 0;
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
   border-radius: 4px;
 }
 
@@ -68,11 +64,7 @@ body {
 }
 
 .auctionImage {
-<<<<<<< HEAD
-  position: relative;
-=======
   margin: 0 auto;
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
   background: #333;
   top: 0.8rem;
   left: 6.2rem;
@@ -84,11 +76,7 @@ body {
 
 .footer {
   background: white;
-<<<<<<< HEAD
-  margin: 1rem 0 5rem 0;
-=======
   margin: 1.4rem 0 4.6rem 0;
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
   padding: 1.5rem;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.25);
 }

@@ -11,10 +11,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Register from "./components/RegisterUser/RegisterUser";
 import LogOut from "./components/LogOut/LogOut";
 import ProfilePage from "./containers/ProfilePage/ProfilePage";
-<<<<<<< HEAD
-=======
 import ChangeProfile from "./containers/ProfilePage/ChangeProfile/ChangeProfile";
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
 
 //Main site of the application, this is where we import other components
 
@@ -51,10 +48,7 @@ class App extends Component {
           <Route path="/myuser" exact component={ProfilePage} />
           <Route path="/contact" exact component={ContactUs} />
           <Route path="/register" component={Register} />
-<<<<<<< HEAD
-=======
           <Route path="/change" component={ChangeProfile} />
->>>>>>> 743069dbf8c917d87f05209d54c7b3f20df16a73
           <Route path="/" component={AboutUs} />
         </Switch>
         <Footer />
