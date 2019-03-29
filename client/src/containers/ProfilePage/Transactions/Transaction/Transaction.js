@@ -49,7 +49,7 @@ class Transaction extends Component {
     return (
       <div>
     <p>
-      {this.props.isSeller ? `Du solgte ${this.props.product} til ${this.props.buyer} for ${this.props.price}` : `Du kjøpte ${this.props.product} fra ${this.props.seller} for ${this.props.price}`}
+      {!this.props.isSeller ? `Du solgte ${this.props.product} til ${this.props.buyer} for ${this.props.price}` : `Du kjøpte ${this.props.product} fra ${this.props.seller} for ${this.props.price}`}
     </p>
       <div>
         <Button clicked={() => this.setState({isReporting: !this.state.isReporting})}>Rapporter</Button>
