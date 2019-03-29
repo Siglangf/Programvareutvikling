@@ -19,8 +19,6 @@ router.post("/newReport", async (req, res) => {
 
   const valueList = [reportedUserID, reportingUserID, productID, description];
 
-  console.log(valueList);
-
   let sqlquery =
     "INSERT INTO reports (reportedUserID, reportingUserID, productID, description) VALUES ";
   sqlquery += generateValueList(valueList);
