@@ -27,14 +27,17 @@ class Transactions extends Component {
   };
 
   render() {
-    const personalTransactions = this.state.transactions.map(transaction => (
-      <li>
+    const personalTransactions = this.state.transactions.map((transaction, i) => (
+      <li key={i}>
         <Transaction
           buyer={transaction.buyer}
+          buyerID={transaction.buyerID}
           buyerEmail={transaction.buyerEmail}
           seller={transaction.seller}
+          sellerID={transaction.sellerID}
           sellerEmail={transaction.sellerEmail}
           product={transaction.product}
+          productID={transaction.productID}
           price={transaction.price}
           isSeller={transaction.isSeller}
         />
@@ -43,13 +46,13 @@ class Transactions extends Component {
 
     return (
       <div>
-        <ul>
+        <ol>
           {this.state.transactions.length ? (
             personalTransactions
           ) : (
             <p>Ingen handler enda!</p>
           )}
-        </ul>
+        </ol>
       </div>
     );
   }

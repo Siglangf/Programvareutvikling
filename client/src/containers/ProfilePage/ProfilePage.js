@@ -57,7 +57,6 @@ class ProfilePage extends Component {
               Mine handler
             </h4>
             {this.state.transactionsClicked ? <Transactions /> : null}
-            <h4 className="profileOption">Vurderinger</h4>
           </div>
           <div>
             <h4 className="profileOption">Endre profil</h4>
@@ -96,7 +95,6 @@ class ProfilePage extends Component {
               Mine handler
             </h4>
             {this.state.transactionsClicked ? <Transactions /> : null}
-            <h4 className="profileOption">Vurderinger</h4>
           </div>
           <div>
           <h4 onClick={() => this.setState({changeProfileClicked: !this.state.changeProfileClicked} )}className="profileOption">Endre Profil</h4>
