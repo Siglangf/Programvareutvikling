@@ -59,3 +59,4 @@ app.use("/api/auth", auth);
 const CC = new CounterController(pool);
 exports.CounterController = CC;
 exports.pool = pool; //exports the connection so it can be required in the users.js module
+exports.app = app;
